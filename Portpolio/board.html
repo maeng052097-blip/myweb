@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자유게시판 | Agentic Architect 맹세영</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .board-page {
+            padding-top: 100px;
+            min-height: 100vh;
+            background: transparent; /* Changed to see the interactive-bg */
+            position: relative;
+        }
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(
+                850px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(7, 76, 145, 0.18),
+                transparent 80%
+            ), radial-gradient(
+                250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(7, 76, 145, 0.25),
+                transparent 60%
+            );
+            pointer-events: none;
+            transition: background 0.1s ease-out;
+        }
+        .board-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 25px;
+            background: rgba(10, 15, 30, 0.03);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .board-list {
+            display: grid;
+            gap: 20px;
+        }
+        .post-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+        .post-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            border-color: var(--samsung-blue-light);
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+        .post-author {
+            font-weight: 700;
+            color: #074c91;
+        }
+        .post-date {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        .post-content {
+            color: #1e293b;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .post-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid transparent;
+        }
+        .edit-btn { background: #f1f5f9; color: #475569; }
+        .edit-btn:hover { background: #e2e8f0; }
+        .delete-btn { background: #fee2e2; color: #dc2626; }
+        .delete-btn:hover { background: #fecaca; }
+
+        /* Form Overlay */
+        .board-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+        /* Nested Replies */
+        .reply-container {
+            margin-left: 40px;
+            margin-top: -15px;
+            margin-bottom: 30px;
+            border-left: 2px solid #e2e8f0;
+            padding-left: 20px;
+        }
+        .reply-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        /* Content Toggle */
+        .content-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .content-body {
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
+        .content-body.collapsed {
+            max-height: 100px; /* Truncate height */
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #074c91;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 0;
+            margin-top: 5px;
+        }
+        .toggle-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Reply Button */
+        .reply-btn {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 0;
+        }
+        .reply-btn:hover { color: #074c91; }
+    </style>
+</head>
+<body>
+    <div class="interactive-bg"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html#home" class="nav-logo">AGENTIC ARCHITECT</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="btn btn-outline" style="border-color: var(--samsung-blue); color: var(--samsung-blue); padding: 8px 16px;">포트폴리오로 돌아가기</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="board-page">
+        <div class="container">
+            <h1 class="section-title">자유게시판</h1>
+            
+            <div class="board-toolbar">
+                <div class="status">전체 글: <span id="post-count">0</span>개</div>
+                <div class="btns">
+                    <button class="btn btn-submit" onclick="openWriteModal()">새 글 쓰기</button>
+                </div>
+            </div>
+
+            <div id="no-posts" style="text-align: center; padding: 100px 0; color: #94a3b8; display: none;">
+                등록된 게시글이 없습니다. 첫 번째 글을 남겨보세요!
+            </div>
+
+            <div id="post-list" class="board-list">
+                <!-- Posts will be injected here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Write/Edit Modal -->
+    <div id="board-modal" class="board-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" style="margin-bottom: 20px; color: #074c91;">글 남기기</h3>
+            <form id="post-form">
+                <input type="hidden" id="post-id">
+                <input type="hidden" id="parent-id">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="post-author-input">작성자 (Name)</label>
+                    <input type="text" id="post-author-input" required placeholder="본인의 이름을 입력해주세요" 
+                           style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 25px;">
+                    <label for="post-content-input">내용 (Message)</label>
+                    <textarea id="post-content-input" rows="6" required placeholder="자유롭게 기록을 남겨주세요"
+                              style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; resize: none;"></textarea>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="closeModal()" style="flex: 1; background: #eaeff5; color: #475569; padding: 15px; font-weight: 600;">취소</button>
+                    <button type="submit" class="btn btn-submit" style="flex: 1; margin: 0; padding: 15px; font-weight: 600;">등록하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="board.js"></script>
+</body>
+</html>
