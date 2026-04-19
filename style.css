@@ -30,7 +30,7 @@
 body {
     font-family: 'Noto Sans KR', 'Inter', sans-serif;
     color: var(--text-main);
-    background-color: #030614;
+    background-color: #010206;
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
@@ -47,10 +47,10 @@ body::before {
     z-index: -2;
     pointer-events: none;
     background: 
-        radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 50% 80%, rgba(7, 76, 145, 0.2) 0%, transparent 60%),
-        radial-gradient(circle at 30% 10%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(7, 76, 145, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 30% 10%, rgba(14, 165, 233, 0.04) 0%, transparent 50%);
     animation: auroraDrift 20s ease-in-out infinite alternate;
 }
 
