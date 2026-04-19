@@ -9,24 +9,22 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // Initialize Vanta.js NET effect on the hero background
+    // Initialize Vanta.js FOG effect fully covering the background
     if (typeof VANTA !== 'undefined') {
-        VANTA.NET({
-            el: ".hero-background",
-            mouseControls: true,
-            touchControls: true,
+        VANTA.FOG({
+            el: "#vanta-bg",
+            mouseControls: false,
+            touchControls: false,
             gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x22d3ee,       // Accent cyan
-            backgroundColor: 0x000000, // Will be overridden by alpha
-            backgroundAlpha: 0.0,  // Transparent to let Aurora show through
-            points: 12.00,
-            maxDistance: 22.00,
-            spacing: 18.00,
-            showDots: true
+            highlightColor: 0x22d3ee,  // cyan accent
+            midtoneColor: 0x074c91, // samsung blue
+            lowlightColor: 0xa78bfa, // purple
+            baseColor: 0x030614, // deep space
+            blurFactor: 0.8,
+            speed: 0.4, // Slower, subtler animation
+            zoom: 1.00
         });
     }
 
@@ -69,137 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateGlowPosition();
 
     if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.baseSpeedX = (Math.random() - 0.5) * 0.4;
-                this.baseSpeedY = (Math.random() - 0.5) * 0.4;
-                this.speedX = this.baseSpeedX;
-                this.speedY = this.baseSpeedY;
-                this.opacity = Math.random() * 0.4 + 0.1;
-                this.hue = Math.random() > 0.5 ? 188 : 217; // cyan or blue
-            }
-            update() {
-                // Mouse repulsion effect (Antigravity style)
-                const dx = this.x - mouseX;
-                const dy = this.y - mouseY;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const repulseRadius = 150;
-
-                if (dist < repulseRadius && isMouseOnPage) {
-                    const force = (repulseRadius - dist) / repulseRadius;
-                    const angle = Math.atan2(dy, dx);
-                    this.speedX += Math.cos(angle) * force * 0.8;
-                    this.speedY += Math.sin(angle) * force * 0.8;
-                }
-
-                // Friction to slow down after repulsion
-                this.speedX *= 0.97;
-                this.speedY *= 0.97;
-
-                // Drift back to base speed
-                this.speedX += (this.baseSpeedX - this.speedX) * 0.01;
-                this.speedY += (this.baseSpeedY - this.speedY) * 0.01;
-
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Wrap around edges
-                if (this.x < -10) this.x = canvas.width + 10;
-                if (this.x > canvas.width + 10) this.x = -10;
-                if (this.y < -10) this.y = canvas.height + 10;
-                if (this.y > canvas.height + 10) this.y = -10;
-            }
-            draw() {
-                // Particles near cursor glow brighter
-                const dx = this.x - mouseX;
-                const dy = this.y - mouseY;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const proximityBoost = isMouseOnPage ? Math.max(0, 1 - dist / 300) * 0.4 : 0;
-                const finalOpacity = this.opacity + proximityBoost;
-
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${finalOpacity})`;
-                ctx.fill();
-            }
-        }
-
-        // Create particles
-        const numParticles = Math.min(90, Math.floor(canvas.width * canvas.height / 12000));
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-        }
-
-        function drawLines() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 140) {
-                        // Lines near cursor are brighter
-                        const midX = (particles[i].x + particles[j].x) / 2;
-                        const midY = (particles[i].y + particles[j].y) / 2;
-                        const mouseDist = Math.sqrt((midX - mouseX) ** 2 + (midY - mouseY) ** 2);
-                        const mouseBoost = isMouseOnPage ? Math.max(0, 1 - mouseDist / 250) * 0.15 : 0;
-                        const opacity = (1 - dist / 140) * 0.1 + mouseBoost;
-
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(34, 211, 238, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-
-            // Lines from cursor to nearby particles
-            if (isMouseOnPage) {
-                particles.forEach(p => {
-                    const dx = p.x - mouseX;
-                    const dy = p.y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 180) {
-                        const opacity = (1 - dist / 180) * 0.12;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(34, 211, 238, ${opacity})`;
-                        ctx.lineWidth = 0.3;
-                        ctx.moveTo(mouseX, mouseY);
-                        ctx.lineTo(p.x, p.y);
-                        ctx.stroke();
-                    }
-                });
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            drawLines();
-            requestAnimationFrame(animateParticles);
-        }
-
-        animateParticles();
+        // Antigravity particles disabled to let Vanta.FOG shine through without clutter
     }
 
     // =============================================
