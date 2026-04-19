@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맹세영 | 설비 × AI 융합형 엔지니어 포트폴리오</title>
+    <meta name="description" content="동양미래대학교 로봇소프트웨어과 맹세영의 삼성전자 DS부문 설비기술 지원 포트폴리오입니다.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="home">
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <canvas id="particle-canvas"></canvas>
+    <div class="cursor-glow" id="cursor-glow"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="nav-logo">MSY PORTFOLIO</a>
+            <ul class="nav-links">
+                <li><a href="#about">소개</a></li>
+                <li><a href="#roadmap">로드맵</a></li>
+                <li><a href="#career">경험</a></li>
+                <li><a href="#projects">프로젝트</a></li>
+                <li><a href="#bootcamp">부트캠프</a></li>
+                <li><a href="#competencies">역량</a></li>
+
+                <li><a href="#certifications">자격증</a></li>
+                <li><a href="#club">동아리</a></li>
+                <li><a href="#contact">연락처</a></li>
+                <li><a href="board.html">게시판</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="code-watermark">
+        > SYSTEM_INIT: FSE_AGENT_LOADED<br>
+        > CONNECTING_TO: EQUIP_NODE_01... OK<br>
+        > PLC_SEQUENCE: VERIFIED<br>
+        > SAFETY_INTERLOCK_CHK: PASSED<br>
+        > WAITING_FOR_COMMAND...
+    </div>
+
+    <header class="hero">
+        <div class="hero-content slide-up">
+            <p class="hero-label" style="font-size: 1rem; color: var(--samsung-blue-light); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600;">Samsung Electronics DS Division</p>
+            <h1 class="hero-title" style="font-size: 4rem; letter-spacing: -2px; margin-bottom: 8px;">맹세영</h1>
+            <h2 class="hero-subtitle" style="font-size: 1.6rem; text-transform: none; color: var(--text-light); font-weight: 500; letter-spacing: 0;">
+                설비 <span style="color: var(--samsung-blue-light);">×</span> AI 융합형 엔지니어
+            </h2>
+            <p class="hero-slogan" style="margin-top: 25px;">"현장의 설비를 이해하고, AI로 가동률의 한계를 돌파하는 엔지니어"</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+                <span class="hero-tag">⚙️ PLC 시퀀스 제어</span>
+                <span class="hero-tag">🤖 AI/데이터 분석</span>
+                <span class="hero-tag">🔧 설비 유지보수</span>
+                <span class="hero-tag">📊 트러블슈팅</span>
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </header>
+
+    <main>
+        <!-- ===== ABOUT ME: 삼성 인재상 매칭 ===== -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title slide-up">삼성 인재상 × 맹세영</h2>
+                <p class="slide-up" style="text-align: center; color: var(--text-light); margin-bottom: 50px; font-size: 1.05rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    삼성전자가 추구하는 <strong style="color: var(--samsung-blue-light);">열정 · 창의혁신 · 인간미</strong> 3대 인재상에 부합하는 엔지니어입니다.
+                </p>
+                <div class="vision-grid slide-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+                    
+                    <div class="vision-card" style="background: var(--bg-white); padding: 35px 30px; border-radius: 16px; box-shadow: var(--shadow-md); border-top: 4px solid #f44336; border: 1px solid var(--border-color);">
+                        <div style="font-size: 2.5rem; margin-bottom: 20px;">🔥</div>
+                        <h3 style="color: var(--text-main); margin-bottom: 15px; font-size: 1.3rem;">열정 — 끊임없는 도전</h3>
+                        <p style="color: var(--text-light); line-height: 1.7; font-size: 0.95rem;">군 전역 후 전공학사(4년제) 과정을 선택하여 심화 학습에 도전하고 있습니다. 반도체 부트캠프, ADsP, 정보처리기사 등 끊임없이 자기 개발에 투자하며, 삼성전자 DS부문 설비기술 엔지니어를 향한 명확한 목표를 가지고 달려가고 있습니다.</p>
+                    </div>
+
+                    <div class="vision-card" style="background: var(--bg-white); padding: 35px 30px; border-radius: 16px; box-shadow: var(--shadow-md); border-top: 4px solid var(--samsung-blue); border: 1px solid var(--border-color);">
+                        <div style="font-size: 2.5rem; margin-bottom: 20px;">💡</div>
+                        <h3 style="color: var(--text-main); margin-bottom: 15px; font-size: 1.3rem;">창의혁신 — AI와 현장의 융합</h3>
+                        <p style="color: var(--text-light); line-height: 1.7; font-size: 0.95rem;">전통적인 설비 제어(PLC, 시퀀스)에 <strong style="color: var(--text-main);">AI 에이전틱 아키텍팅</strong>을 접목하는 융합적 사고를 합니다. UR 동아리에서 카메라 물체인식 + 레이더 기반 자율주행 로봇의 SW를 개발하며, AI가 현장 설비의 효율을 극대화할 수 있다는 가능성을 실험하고 있습니다.</p>
+                    </div>
+
+                    <div class="vision-card" style="background: var(--bg-white); padding: 35px 30px; border-radius: 16px; box-shadow: var(--shadow-md); border-top: 4px solid #4caf50; border: 1px solid var(--border-color);">
+                        <div style="font-size: 2.5rem; margin-bottom: 20px;">🤝</div>
+                        <h3 style="color: var(--text-main); margin-bottom: 15px; font-size: 1.3rem;">인간미 — 책임감과 성실</h3>
+                        <p style="color: var(--text-light); line-height: 1.7; font-size: 0.95rem;">편의점 야간 알바 <strong style="color: var(--text-main);">약 2년간 무결점 재고관리</strong>를 수행하며 책임감을 증명했습니다. 육군 레이더 병과 병장 만기전역으로 규정 기반 장비 운용 능력과 팀 협업 역량을 체득했으며, 캡스톤 디자인에서 4인 팀의 설계/제작 담당으로 프로젝트를 완수했습니다.</p>
+                    </div>
+
+                </div>
+
+                <!-- Infographic Image -->
+                <div class="infographic-container slide-up" style="margin-top: 50px; text-align: center; background: var(--bg-white); padding: 20px; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
+                    <img src="images/infographic.jpg" alt="설비 × AI 융합형 엔지니어 인포그래픽" style="max-width: 100%; border-radius: 8px; margin: 0 auto; display: block;">
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== 학사 로드맵 ===== -->
+        <section id="roadmap" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title slide-up">📚 학사 로드맵</h2>
+                <p class="slide-up" style="text-align: center; color: var(--text-light); margin-bottom: 15px; font-size: 1.05rem;">
+                    동양미래대학교 로봇소프트웨어과 | 전공학사 4년 과정 (2028년 졸업 예정)
+                </p>
+
+
+                <!-- 1학년 1학기 -->
+                <div class="roadmap-semester slide-up">
+                    <div class="semester-header">
+                        <h3>1학년 1학기</h3>
+                        <span class="semester-status completed">이수 완료</span>
+                    </div>
+                    <div class="subject-grid">
+                        <div class="subject-card"><span class="subject-tag tag-equip">🔧설비</span>3차원 CAD</div>
+                        <div class="subject-card"><span class="subject-tag tag-auto">⚡전자</span>디지털논리회로</div>
+                        <div class="subject-card"><span class="subject-tag tag-robot">🤖자동화</span>로봇기초실습</div>
+                        <div class="subject-card"><span class="subject-tag tag-auto">⚡전자</span>전기회로 및 실습</div>
+                        <div class="subject-card"><span class="subject-tag tag-general">📖교양</span>예술과 인성</div>
+                        <div class="subject-card"><span class="subject-tag tag-general">📖교양</span>진로설계와 실천인성</div>
+                        <div class="subject-card"><span class="subject-tag tag-equip">🔧설비</span>엔지니어링 기초</div>
+                        <div class="subject-card"><span class="subject-tag tag-sw">💻SW</span>컴퓨터와 ChatGPT활용</div>
+                    </div>
+                </div>
+
+                <!-- 1학년 2학기 -->
+                <div class="roadmap-semester slide-up">
+                    <div class="semester-header">
+                        <h3>1학년 2학기</h3>
+                        <span class="semester-status completed">이수 완료</span>
+                    </div>
+                    <div class="subject-grid">
+                        <div class="subject-card"><span class="subject-tag tag-auto">⚡전자</span>전자회로 및 실습</div>
+                        <div class="subject-card"><span class="subject-tag tag-equip">🔧설비</span>CAD기초</div>
+                        <div class="subject-card highlight-subject"><span class="subject-tag tag-robot">🤖자동화</span>창의적 공학설계 (캡스톤)</div>
+                        <div class="subject-card"><span class="subject-tag tag-general">📖교양</span>백세시대 부자학</div>
+                        <div class="subject-card"><span class="subject-tag tag-sw">💻SW</span>파이썬 프로그래밍</div>
+                        <div class="subject-card"><span class="subject-tag tag-general">📖교양</span>초급토익어휘</div>
+                        <div class="subject-card"><span class="subject-tag tag-robot">🤖자동화</span>아두이노 프로그래밍</div>
+                        <div class="subject-card"><span class="subject-tag tag-equip">🔧설비</span>로봇공학기초(기구학)</div>
+                    </div>
+                </div>
+
+                <!-- 2학년 1학기 -->
+                <div class="roadmap-semester slide-up">
+                    <div class="semester-header">
+                        <h3>2학년 1학기</h3>
+                        <span class="semester-status current">현재 수강 중</span>
+                    </div>
+                    <div class="subject-grid">
+                        <div class="subject-card"><span class="subject-tag tag-general">📖교양</span>전공영어</div>
+                        <div class="subject-card"><span class="subject-tag tag-sw">💻SW</span>윈도우 프로그래밍</div>
+                        <div class="subject-card"><span class="subject-tag tag-sw">💻SW</span>웹프로그래밍</div>
+                        <div class="subject-card highlight-subject"><span class="subject-tag tag-sw">💻SW</span>인공지능개론</div>
+                        <div class="subject-card highlight-subject"><span class="subject-tag tag-robot">🤖자동화</span>PLC프로그래밍</div>
+                        <div class="subject-card"><span class="subject-tag tag-robot">🤖자동화</span>마이크로컨트롤러</div>
+                    </div>
+                </div>
+
+                <!-- 향후 계획 -->
+                <div class="roadmap-semester slide-up" style="border-color: var(--samsung-blue); border-style: dashed;">
+                    <div class="semester-header">
+                        <h3>향후 계획 (2학년 2학기 ~ 4학년)</h3>
+                        <span class="semester-status planned">계획</span>
+                    </div>
+                    <div style="padding: 15px 20px; color: var(--text-light); line-height: 1.8;">
+                        <p>• 캡스톤 디자인 2차, 3차 — 반도체 설비 제어 관련 프로젝트 목표</p>
+                        <p>• 임베디드 시스템, 로봇 제어 심화, 산업 자동화 과목 이수 예정</p>
+                        <p>• 전공학사(4년제) 과정 완료 후 삼성전자 DS 부문 지원</p>
+                    </div>
+                </div>
+
+                <!-- 직무 매핑 요약 -->
+                <div class="slide-up" style="margin-top: 40px; background: var(--bg-white); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                    <h3 style="text-align: center; margin-bottom: 20px; color: var(--samsung-blue-light);">📊 이수 과목 → 삼성 설비기술 직무 연관도</h3>
+                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; text-align: center;">
+                        <div><span class="subject-tag tag-equip" style="font-size: 0.9rem;">🔧 설비/기계</span><br><strong style="color: var(--text-main); font-size: 1.5rem;">5과목</strong></div>
+                        <div><span class="subject-tag tag-auto" style="font-size: 0.9rem;">⚡ 전기/전자</span><br><strong style="color: var(--text-main); font-size: 1.5rem;">3과목</strong></div>
+                        <div><span class="subject-tag tag-robot" style="font-size: 0.9rem;">🤖 자동화/로봇</span><br><strong style="color: var(--text-main); font-size: 1.5rem;">6과목</strong></div>
+                        <div><span class="subject-tag tag-sw" style="font-size: 0.9rem;">💻 소프트웨어</span><br><strong style="color: var(--text-main); font-size: 1.5rem;">5과목</strong></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Career Timeline ===== -->
+        <section id="career" class="section">
+            <div class="container">
+                <h2 class="section-title slide-up">Career Timeline</h2>
+                <div class="timeline">
+                    <!-- 편의점 1차 -->
+                    <div class="timeline-item slide-up">
+                        <div class="timeline-icon">🏪</div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2022 - 2023 (1년)</span>
+                            <h3 class="timeline-title">편의점 야간 알바 1차 — 현장 대응력 확보</h3>
+                            <p class="timeline-desc"><strong>Situation:</strong> 야간 시간대 1인 운영 환경에서 재고 관리, 고객 응대, 매장 운영 전반을 독립적으로 수행.<br>
+                            <strong>Action:</strong> 매뉴얼 기반의 정확한 업무 처리와 창고 정리 최적화를 통해 다음 근무자에게 깔끔한 인수인계를 유지.<br>
+                            <strong>Result:</strong> 재고 실수 제로(Zero Defect) 달성, 야간 독립 운영 능력 입증.</p>
+                        </div>
+                    </div>
+                    <!-- 군 복무 -->
+                    <div class="timeline-item slide-up">
+                        <div class="timeline-icon">🎖️</div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2023.03 - 2024.09 (18개월)</span>
+                            <h3 class="timeline-title">육군 레이더 병과 — 정밀 장비 운용 경험</h3>
+                            <p class="timeline-desc"><strong>Situation:</strong> 레이더 장비의 정밀 운용과 시스템 모니터링을 담당하는 병과에 배치.<br>
+                            <strong>Action:</strong> 규정에 기반한 장비 점검 절차를 준수하며, 실시간 데이터 모니터링과 이상 징후 보고 업무를 수행. 팀 단위 임무에서 협업과 소통을 통해 임무를 완수.<br>
+                            <strong>Result:</strong> 병장 만기전역. 정밀 장비 운용 매뉴얼 숙달, 규정 기반 대응 체계 체화 → <strong>반도체 설비 PM/BM 업무와 직접 연결되는 역량.</strong></p>
+                        </div>
+                    </div>
+                    <!-- 대학 복학 -->
+                    <div class="timeline-item slide-up">
+                        <div class="timeline-icon">🎓</div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2025.03 - 현재</span>
+                            <h3 class="timeline-title">동양미래대학교 복학 — 전공학사 4년제 도전</h3>
+                            <p class="timeline-desc">전역 후 전공학사(4년제) 과정으로 편입하여 심화 학습을 선택. PLC 프로그래밍, 인공지능개론, 마이크로컨트롤러 등 <strong>설비 × AI 융합 역량</strong>을 집중적으로 쌓는 중.</p>
+                        </div>
+                    </div>
+                    <!-- 편의점 2차 -->
+                    <div class="timeline-item slide-up">
+                        <div class="timeline-icon">🏪</div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2024 - 2025 (1년)</span>
+                            <h3 class="timeline-title">편의점 야간 알바 2차 — 학업과 병행하는 끈기</h3>
+                            <p class="timeline-desc">전공학사 학업과 편의점 야간 알바를 동시에 수행. <strong>학업을 병행하면서도 야간 재고관리 무결점</strong>을 달성. 시간 관리와 체력 관리, 그리고 어떤 환경에서도 맡은 바를 끝까지 해내는 책임감을 증명.</p>
+                        </div>
+                    </div>
+                    <!-- UR 동아리 -->
+                    <div class="timeline-item slide-up">
+                        <div class="timeline-icon">🤖</div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2025 - 현재</span>
+                            <h3 class="timeline-title">UR 전공동아리 가입 — 자율주행 로봇 SW 개발</h3>
+                            <p class="timeline-desc">카메라 물체인식, 레이더 모듈 기반 자율주행 로봇의 소프트웨어를 담당. 2026년 동양 EXPO 박람회 출품을 목표로 개발 진행 중.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Chart -->
+                <div class="growth-chart-wrapper slide-up" style="margin-top: 60px; background: var(--bg-white); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color);">
+                    <h3 style="text-align:center; color: var(--text-main); margin-bottom: 30px; font-size: 1.5rem;">📈 역량 성장 곡선 (Growth Trajectory)</h3>
+                    <div style="position: relative; height: 350px; width: 100%;">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 프로젝트 (캡스톤 디자인) ===== -->
+        <section id="projects" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title slide-up">Engineering Projects</h2>
+                <div class="projects-grid" id="projects-grid">
+                    
+                    <!-- 캡스톤 1차: Klann Linkage -->
+                    <div class="project-card slide-up">
+                        <div class="project-header">
+                            <span class="project-tag">Capstone Design 1 (1학년)</span>
+                            <h3>8족 Klann Linkage 달리는 로봇</h3>
+                        </div>
+                        <div class="project-body">
+                            <ul class="project-details">
+                                <li><strong>팀 구성:</strong> 4인 팀 | 본인 역할: <strong>설계 및 제작 담당</strong></li>
+                                <li><strong>설계 도구:</strong> SolidWorks, AutoCAD를 활용해 Klann Linkage 메커니즘을 직접 설계</li>
+                                <li><strong>제작 과정:</strong> 아크릴판을 직접 가공하여 8족 보행 로봇의 프레임과 링크를 제작. 처음 접하는 소재 가공에서 반복적인 시행착오를 거치며 정밀도를 확보</li>
+                                <li><strong>도전과 극복:</strong> 첫 팀 프로젝트에서 시작점 설정의 어려움, Linkage 구조 설계의 복잡성, 아크릴 가공 미숙 등의 난관을 <strong>"계속 부딪히며 전진"</strong>하는 자세로 극복</li>
+                                <li><strong>Result:</strong> 최종적으로 <strong>달리는 로봇 완성</strong> — "못할 건 없다"는 도전 정신 체득</li>
+                            </ul>
+                            <div class="so-what-layer">
+                                <h4>💡 삼성전자 직무 연관성</h4>
+                                <p>SolidWorks/CAD 설계 → 설비 부품 도면 해석 능력 | 정밀 가공 경험 → 설비 하드웨어 이해도 | 팀 협업 → 라인 엔지니어 간 협업 | 끈기 있는 문제 해결 → 트러블슈팅 마인드</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 수업 과제: 신호등 논리 제어 -->
+                    <div class="project-card slide-up">
+                        <div class="project-header">
+                            <span class="project-tag">Logic Control / Digital Design</span>
+                            <h3>삼거리 신호등 논리 제어 설계</h3>
+                        </div>
+                        <div class="project-body">
+                            <ul class="project-details">
+                                <li><strong>과목:</strong> 디지털논리회로 수업 과제</li>
+                                <li><strong>Why this design?</strong> 복잡한 신호 체계에서 발생할 수 있는 교차 오류를 방지하고 최적의 타이밍을 구현하기 위해 <strong>JK 플립플롭과 상태 천이표</strong>를 활용한 논리 설계를 수행했습니다.</li>
+                                <li><strong>Process:</strong> 각 신호 상태를 논리 변수로 정의하고, 카르노 맵을 통해 최소화된 논리식을 도출하여 제어 로직의 신뢰성을 확보했습니다.</li>
+                                <li><strong>Result:</strong> 공학적 근거에 기반한 무결점 신호 제어 시스템을 설계하여 논리 회로 설계 능력을 증명했습니다.</li>
+                            </ul>
+                            <div class="so-what-layer">
+                                <h4>💡 삼성전자 직무 연관성</h4>
+                                <p>상태 천이 기반 논리 설계 → PLC 시퀀스 제어의 기초 | 카르노맵 최적화 → 설비 제어 로직 최적화 능력 | 인터록 개념 → 반도체 공정 안전 로직 설계</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 향후 캡스톤 2차/3차 예정 -->
+                    <div class="project-card slide-up" style="border: 2px dashed var(--samsung-blue); opacity: 0.8;">
+                        <div class="project-header" style="background: linear-gradient(135deg, #1e293b, #334155);">
+                            <span class="project-tag">Capstone Design 2 · 3 (예정)</span>
+                            <h3>향후 캡스톤 디자인 계획</h3>
+                        </div>
+                        <div class="project-body">
+                            <ul class="project-details">
+                                <li><strong>2차 캡스톤 (2학년):</strong> PLC 프로그래밍과 센서 제어를 활용한 <strong>자동화 설비 프로젝트</strong> 계획</li>
+                                <li><strong>3차 캡스톤 (3학년):</strong> AI 기반 설비 모니터링 또는 <strong>예지보전 시스템</strong> 관련 프로젝트 목표</li>
+                                <li><strong>방향:</strong> 매 캡스톤마다 삼성전자 설비기술 직무와의 연관성을 높여가며, 점진적으로 <strong>설비 → 자동화 → AI 융합</strong> 수준을 끌어올리는 것이 목표</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 반도체 부트캠프 ===== -->
+        <section id="bootcamp" class="section">
+            <div class="container">
+                <h2 class="section-title slide-up">🏭 반도체 부트캠프</h2>
+                <p class="slide-up" style="text-align: center; color: var(--text-light); margin-bottom: 50px; font-size: 1.05rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    반도체 부트캠프 사업단 | <span style="color: var(--samsung-blue-light); font-weight: 700;">2026년 7월 수료 예정</span>
+                </p>
+
+                <div class="bootcamp-grid slide-up">
+                    <!-- 초급 -->
+                    <div class="bootcamp-card">
+                        <div class="bootcamp-level" style="background: #4caf50;">초급</div>
+                        <h3>반도체 공정 및 설비 기초</h3>
+                        <ul>
+                            <li>반도체 8대 공정 이해</li>
+                            <li>설비 기초 원리 학습</li>
+                            <li>클린룸 환경 이해</li>
+                        </ul>
+                        <div class="bootcamp-relevance">
+                            <strong>직무 연관:</strong> 설비기술 업무의 기본 토대
+                        </div>
+                    </div>
+                    <!-- 중급 -->
+                    <div class="bootcamp-card" style="border-color: var(--samsung-blue);">
+                        <div class="bootcamp-level" style="background: var(--samsung-blue);">중급</div>
+                        <h3>설비 자동화 · 제어 · 유지보수</h3>
+                        <ul>
+                            <li>반도체 설비 자동화</li>
+                            <li>반도체 장비 제어</li>
+                            <li>반도체 설비 운용</li>
+                            <li>반도체 설비 유지보수</li>
+                        </ul>
+                        <div class="bootcamp-relevance">
+                            <strong>직무 연관:</strong> 삼성 DS 설비기술의 <strong>PM/BM 핵심 업무</strong>와 직결
+                        </div>
+                    </div>
+                    <!-- 고급 -->
+                    <div class="bootcamp-card" style="border-color: #f44336;">
+                        <div class="bootcamp-level" style="background: #f44336;">고급</div>
+                        <h3>설비 설계 · S/W 운용</h3>
+                        <ul>
+                            <li>반도체 설비 설계</li>
+                            <li>반도체 장비 S/W 운용</li>
+                        </ul>
+                        <div class="bootcamp-relevance">
+                            <strong>직무 연관:</strong> 설비 개조/개선, 스마트팩토리 → <strong>생산기술 직무 확장</strong> 가능
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-up" style="margin-top: 40px; background: var(--bg-light); padding: 25px; border-radius: 12px; border-left: 5px solid var(--samsung-blue);">
+                    <h4 style="color: var(--text-main); margin-bottom: 10px;">💡 부트캠프 → 삼성전자 직무 가치</h4>
+                    <p style="color: var(--text-light); line-height: 1.7;">이 부트캠프는 반도체 설비의 <strong style="color: var(--text-main);">운용 → 제어 → 유지보수 → 설계</strong> 전 과정을 체계적으로 학습할 수 있는 프로그램입니다. 삼성전자 DS부문 설비기술 직무에서 요구하는 <strong style="color: var(--text-main);">PM(예방정비), BM(고장수리), 트러블슈팅</strong> 역량 확보에 직접적으로 기여합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Technical Arsenal ===== -->
+        <section id="academic" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title slide-up">Technical Arsenal</h2>
+                <div class="academic-grid" id="academic-grid">
+                    <div class="academic-card slide-up">
+                        <div class="academic-img-wrapper">
+                            <img src="images/cad.png" alt="CAD Design">
+                        </div>
+                        <div class="academic-content">
+                            <h3>설비 기초: 기계 설계 및 기구학</h3>
+                            <p>3차원 CAD(SolidWorks)를 통한 부품 설계 역량과 로봇공학기초(기구학)를 활용한 메커니즘 해석 능력. 캡스톤에서 Klann Linkage를 직접 설계/제작한 실전 경험 보유.</p>
+                        </div>
+                    </div>
+                    <div class="academic-card slide-up">
+                        <div class="academic-img-wrapper">
+                            <img src="images/bjt.png" alt="BJT Electronics">
+                        </div>
+                        <div class="academic-content">
+                            <h3>전기/전자: 회로 해석 및 제어</h3>
+                            <p>전기회로, 전자회로(BJT 증폭/스위칭), 디지털논리회로(상태천이표, 카르노맵)를 이수. 하드웨어 신호 제어의 원리를 이해하며 설비 전기 계통 트러블슈팅 기초 역량 확보.</p>
+                        </div>
+                    </div>
+                    <div class="academic-card slide-up highlight-card">
+                        <div class="academic-img-wrapper">
+                            <img src="images/PLC.png" alt="PLC Automation">
+                        </div>
+                        <div class="academic-content">
+                            <h3>핵심: PLC 제어 및 자동화</h3>
+                            <p>GX-Works3를 이용한 <strong>PLC 시퀀스 제어</strong> 및 래더 다이어그램 작성. 자기유지회로, 인터록 회로 등 반도체 설비 <strong>안전 로직 설계</strong> 능력 확보. 아두이노 기반 MCU 제어와 C# 윈도우 프로그래밍으로 설비 상태 모니터링 시스템 구현 경험.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Core Competencies ===== -->
+        <section id="competencies" class="section">
+            <div class="container">
+                <h2 class="section-title slide-up">5 Core Competencies</h2>
+                <p class="slide-up" style="text-align: center; color: var(--text-light); margin-bottom: 50px; font-size: 1rem;">
+                    삼성전자 DS부문 설비기술 직무 기술서(JD)에 직접 매핑된 핵심 역량
+                </p>
+                <div class="competencies-grid" id="competencies-grid">
+                    
+                    <div class="competency-card slide-up highlight-border">
+                        <div class="comp-icon">⚙️</div>
+                        <h3>1. PLC 시퀀스 제어 전문성</h3>
+                        <p><strong>GX-Works3 숙련도:</strong> 전공 수업과 반도체 부트캠프를 통해 래더 다이어그램 작성, 자기유지 회로, 인터록 회로 설계 능력 확보.</p>
+                        <p class="impact"><strong>설비기술 가치:</strong> 반도체 공정 설비의 시퀀스 제어 로직을 읽고, 수정하고, 트러블슈팅할 수 있는 실무 역량.</p>
+                    </div>
+
+                    <div class="competency-card slide-up">
+                        <div class="comp-icon">🔎</div>
+                        <h3>2. 데이터 기반 트러블슈팅</h3>
+                        <p><strong>논리적 디버깅:</strong> PLC 실습 중 타이머 오류와 통신 간섭 문제를 회로도 기반으로 끝까지 추적하여 해결. 신호등 논리 제어에서 상태 천이 기반 무결점 설계 경험.</p>
+                        <p class="impact"><strong>설비기술 가치:</strong> 설비 이상 발생 시 근본 원인을 논리적으로 분석하고 재발을 방지하는 엔지니어.</p>
+                    </div>
+
+                    <div class="competency-card slide-up">
+                        <div class="comp-icon">🤖</div>
+                        <h3>3. AI/DX 디지털 융합 역량</h3>
+                        <p><strong>AI 에이전틱 아키텍팅:</strong> AI 에이전트를 활용한 시스템 설계 경험. IAFA 프롬프트 설계로 정교한 결과물을 산출하도록 유도하는 시스템 지휘 역량.</p>
+                        <p class="impact"><strong>설비기술 가치:</strong> 스마트팩토리 전환 시대에 AI를 활용한 예지보전(Predictive Maintenance) 시스템 구축 가능.</p>
+                    </div>
+
+                    <div class="competency-card slide-up">
+                        <div class="comp-icon">🔧</div>
+                        <h3>4. 설비 H/W 이해 및 가공 능력</h3>
+                        <p><strong>CAD 설계 + 직접 가공:</strong> SolidWorks, AutoCAD 활용 설계와 아크릴 가공까지 직접 수행. 로봇공학기초(기구학)으로 메커니즘 원리 이해.</p>
+                        <p class="impact"><strong>설비기술 가치:</strong> 설비 부품 도면 해석, 부품 교체 시 기계적 구조 이해, 지그/픽스처 개선 아이디어 제안 가능.</p>
+                    </div>
+
+                    <div class="competency-card slide-up">
+                        <div class="comp-icon">☁️</div>
+                        <h3>5. SW 개발 및 모니터링 역량</h3>
+                        <p><strong>풀스택 역량:</strong> Python, C#(윈도우 프로그래밍), 웹프로그래밍을 통해 설비 데이터를 수집·분석·시각화할 수 있는 소프트웨어 개발 능력 보유.</p>
+                        <p class="impact"><strong>설비기술 가치:</strong> 설비 로그 데이터 분석, 실시간 모니터링 대시보드 구축, 데이터 기반 의사결정 지원 가능.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ===== 자격증 & 어학 로드맵 ===== -->
+        <section id="certifications" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title slide-up">📋 자격증 & 어학 로드맵</h2>
+                <div class="cert-grid slide-up">
+                    
+                    <div class="cert-card">
+                        <div class="cert-icon">📊</div>
+                        <h3>ADsP</h3>
+                        <p>데이터분석 준전문가</p>
+                        <div class="cert-status preparing">2026년 8~9월 취득 예정</div>
+                        <div class="cert-relevance">설비 데이터 분석 → 예지보전 역량</div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-icon">🏆</div>
+                        <h3>정보처리기사</h3>
+                        <p>국가기술자격</p>
+                        <div class="cert-status planned">2027년 준비 예정</div>
+                        <div class="cert-relevance">SW 기반 설비 자동화 역량 공인</div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-icon">🌐</div>
+                        <h3>TOEIC</h3>
+                        <p>목표: 800점 이상</p>
+                        <div class="cert-status planned">2026년 겨울방학 준비</div>
+                        <div class="cert-relevance">삼성 공채 어학 기준 충족</div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-icon">🗣️</div>
+                        <h3>OPIc</h3>
+                        <p>영어 Speaking 인증</p>
+                        <div class="cert-status planned">2026년 겨울방학 준비</div>
+                        <div class="cert-relevance">삼성 공채 어학 기준 충족</div>
+                    </div>
+
+                    <div class="cert-card">
+                        <div class="cert-icon">📝</div>
+                        <h3>GSAT</h3>
+                        <p>삼성 직무적성검사</p>
+                        <div class="cert-status planned">졸업 전 준비</div>
+                        <div class="cert-relevance">삼성전자 입사 필수 관문</div>
+                    </div>
+
+                    <div class="cert-card" style="border: 1px solid #4caf50;">
+                        <div class="cert-icon">🚗</div>
+                        <h3>운전면허</h3>
+                        <p>1종/2종 보통</p>
+                        <div class="cert-status completed-cert">취득 완료 ✅</div>
+                        <div class="cert-relevance">현장 이동 및 출퇴근</div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 동아리 & 학교생활 ===== -->
+        <section id="club" class="section">
+            <div class="container">
+                <h2 class="section-title slide-up">🤖 UR 전공동아리 & 학교생활</h2>
+                
+                <div class="club-main slide-up" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 50px;">
+                    <div style="background: var(--bg-white); padding: 35px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                        <h3 style="color: var(--samsung-blue-light); margin-bottom: 20px; font-size: 1.4rem;">UR 동아리 활동</h3>
+                        <div style="margin-bottom: 15px;">
+                            <span style="background: var(--samsung-blue); color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">역할: SW(소프트웨어) 담당</span>
+                        </div>
+                        <ul style="color: var(--text-light); line-height: 2; list-style: none;">
+                            <li>🎯 <strong style="color: var(--text-main);">목표:</strong> 자율주행 로봇 제작 및 동양 EXPO 출품</li>
+                            <li>📷 <strong style="color: var(--text-main);">카메라 모듈:</strong> 물체 인식(Object Detection) 구현</li>
+                            <li>📡 <strong style="color: var(--text-main);">레이더 모듈:</strong> 거리 측정 및 장애물 감지</li>
+                            <li>🧠 <strong style="color: var(--text-main);">자율주행 SW:</strong> 센서 융합 기반 경로 제어 알고리즘 개발</li>
+                            <li>👥 <strong style="color: var(--text-main);">협업:</strong> HW/SW 팀원 간 시스템 통합(SI) 과정 학습</li>
+                        </ul>
+                    </div>
+                    <div style="background: var(--bg-white); padding: 35px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow-md);">
+                        <h3 style="color: var(--samsung-blue-light); margin-bottom: 20px; font-size: 1.4rem;">학교생활 요약</h3>
+                        <div style="display: grid; gap: 20px;">
+                            <div style="background: var(--bg-light); padding: 20px; border-radius: 12px; text-align: center;">
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">동양 EXPO 박람회</p>
+                                <p style="color: #4caf50; font-size: 1.3rem; font-weight: 700;">2026년 7~8월 출품 예정</p>
+                                <p style="color: var(--text-light); font-size: 0.85rem; margin-top: 5px;">자율주행 로봇 시연 및 전시 계획</p>
+                            </div>
+                            <div style="background: var(--bg-light); padding: 20px; border-radius: 12px; text-align: center;">
+                                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 5px;">졸업 예정</p>
+                                <p style="color: var(--text-main); font-size: 1.3rem; font-weight: 700;">2028년 (전공학사 4년제)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide-up" style="background: var(--bg-light); padding: 25px; border-radius: 12px; border-left: 5px solid var(--samsung-blue);">
+                    <h4 style="color: var(--text-main); margin-bottom: 10px;">💡 동아리 경험 → 삼성전자 직무 가치</h4>
+                    <p style="color: var(--text-light); line-height: 1.7;">UR 동아리에서의 <strong style="color: var(--text-main);">센서 융합 자율주행 로봇 개발</strong> 경험은 반도체 FAB 내 <strong style="color: var(--text-main);">자동 반송 시스템(AMHS)</strong>이나 <strong style="color: var(--text-main);">설비 상태 모니터링 센서</strong> 운용과 직접 연결됩니다. 카메라와 레이더 데이터를 소프트웨어적으로 처리하는 경험은 스마트팩토리 환경에서 큰 강점입니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Contact ===== -->
+        <section id="contact" class="section bg-light">
+            <div class="container text-center">
+                <h2 class="section-title slide-up">Contact Me</h2>
+                <p class="slide-up" style="margin-bottom: 40px; color: var(--text-light); font-size: 1.1rem;">
+                    설비 가동률의 한계를 돌파할 준비가 되어 있습니다. 언제든지 연락 주시기 바랍니다.
+                </p>
+                <div class="contact-wrapper slide-up">
+                    <div class="contact-info">
+                        <a href="mailto:maengsy0520@naver.com" class="contact-card">
+                            <div class="contact-icon">📧</div>
+                            <h3>Email</h3>
+                            <p>maengsy0520@naver.com</p>
+                        </a>
+                        <a href="tel:010-4618-8449" class="contact-card">
+                            <div class="contact-icon">📱</div>
+                            <h3>Phone</h3>
+                            <p>010-4618-8449</p>
+                        </a>
+                        <a href="https://github.com/maeng052097-blip" target="_blank" class="contact-card">
+                            <div class="contact-icon">💻</div>
+                            <h3>GitHub</h3>
+                            <p>github.com/maeng052097-blip</p>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <h3>방문자 메세지 전송</h3>
+                        <p style="margin-bottom:20px; font-size:0.9rem; color:var(--text-light);">
+                            작성해주신 메세지는 제 이메일로 즉시 전달됩니다.
+                        </p>
+                        <form action="mailto:maengsy0520@naver.com" method="POST" enctype="text/plain" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">성함 (Name)</label>
+                                <input type="text" id="name" name="name" required placeholder="이름을 입력해주세요">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-info">연락처/소속 (Contact/Company)</label>
+                                <input type="text" id="contact-info" name="contact-info" required placeholder="이메일 또는 전화번호/소속">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">메세지 (Message)</label>
+                                <textarea id="message" name="message" rows="4" required placeholder="질문이나 남기실 말씀을 적어주세요"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-submit">메일 보내기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 자유게시판 링크 ===== -->
+        <section id="interaction" class="section">
+            <div class="container text-center">
+                <h2 class="section-title slide-up">Visitor Interaction</h2>
+                <div class="board-preview slide-up" style="background: var(--bg-white); padding: 50px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: var(--shadow-lg); max-width: 800px; margin: 0 auto;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">💬</div>
+                    <h3 style="margin-bottom: 15px; color: var(--samsung-blue-light);">자유게시판에서 소통하기</h3>
+                    <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 30px;">
+                        기록을 남기거나 질문, 요청 사항이 있으시면 자유게시판을 이용해주세요.<br>
+                        좋아요(추천) 및 댓글 기능도 지원합니다.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 20px;">
+                        <a href="board.html" class="btn btn-submit" style="padding: 15px 40px; font-size: 1.1rem; background: var(--samsung-blue);">게시판 입장하기</a>
+                    </div>
+                    
+                    <div class="dx-info" style="margin-top: 40px; text-align: left; background: var(--bg-light); padding: 25px; border-radius: 12px; border-left: 5px solid var(--samsung-blue);">
+                        <h4 style="margin-bottom: 10px; color: var(--text-main);">DX 역량 증명</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">
+                            이 게시판은 LocalStorage 기반의 CRUD 시스템으로 구축되어 있으며, 좋아요(추천), 댓글, 수정/삭제 기능을 포함한 인터랙티브 시스템입니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 맹세영 | 설비 × AI 융합형 엔지니어 포트폴리오. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
