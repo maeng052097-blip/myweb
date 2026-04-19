@@ -89,21 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
                 // Create particles scattered widely
-                for(let i=0; i<150; i++) {
+                for(let i=0; i<300; i++) { // Increased count to match Vanta point density
                     const angle = Math.random() * Math.PI * 2;
-                    const distance = Math.max(canvas.width, canvas.height) + Math.random() * 500; 
+                    const distance = Math.max(canvas.width, canvas.height) + Math.random() * 800; 
                     particles.push({
                         x: center.x + Math.cos(angle) * distance,
                         y: center.y + Math.sin(angle) * distance,
                         vx: 0,
                         vy: 0,
-                        size: Math.random() * 2 + 1,
-                        hue: Math.random() > 0.5 ? 188 : 217
+                        size: Math.random() * 1.5 + 0.5, // Matches Vanta dot size
                     });
                 }
 
                 function animate() {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; // softer trailing effect
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // trailing effect
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
                     let allGathered = true;
@@ -118,21 +117,20 @@ document.addEventListener('DOMContentLoaded', () => {
                             p.vx += dx * 0.0006;
                             p.vy += dy * 0.0006;
                             
-                            // Lighter friction implies longer drifting time before snap
                             p.vx *= 0.98;
                             p.vy *= 0.98;
                             
                             if (dist > 15) allGathered = false;
 
-                            // Constellation lines
-                            for(let i=0; i<Math.min(3, particles.length); i++){
+                            // Constellation lines using Vanta's Dark Cyan color (10, 108, 142)
+                            for(let i=0; i<Math.min(4, particles.length); i++){
                                 let p2 = particles[Math.floor(Math.random() * particles.length)];
                                 const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
                                 if(d2 < 120) {
                                     ctx.beginPath();
                                     ctx.moveTo(p.x, p.y);
                                     ctx.lineTo(p2.x, p2.y);
-                                    ctx.strokeStyle = `rgba(34, 211, 238, ${0.1 - d2/1200})`;
+                                    ctx.strokeStyle = `rgba(10, 108, 142, ${0.15 - d2/1200})`;
                                     ctx.stroke();
                                 }
                             }
@@ -141,9 +139,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         p.x += p.vx;
                         p.y += p.vy;
 
+                        if (phase === 'explode') {
+                            // Draw lines matching Vanta while drifting after explosion
+                            for(let i=0; i<Math.min(3, particles.length); i++){
+                                let p2 = particles[Math.floor(Math.random() * particles.length)];
+                                const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                                if(d2 > 0 && d2 < 100) {
+                                    ctx.beginPath();
+                                    ctx.moveTo(p.x, p.y);
+                                    ctx.lineTo(p2.x, p2.y);
+                                    ctx.strokeStyle = `rgba(10, 108, 142, ${0.3 - d2/333})`;
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+
                         ctx.beginPath();
                         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                        ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
+                        ctx.fillStyle = `rgb(10, 108, 142)`; // Vanta Dark Cyan Match
                         ctx.fill();
                     });
 
@@ -151,38 +164,39 @@ document.addEventListener('DOMContentLoaded', () => {
                         phase = 'explode';
                         
                         // Softer Center flash
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                        // Explode outward with drastically reduced speed so it looks like floating debris rather than bullets
+                        // Explode outward - calculated drag to stop gracefully
                         particles.forEach(p => {
                             const angle = Math.random() * Math.PI * 2;
-                            const speed = Math.random() * 15 + 5;
+                            const speed = Math.random() * 25 + 10;
                             p.vx = Math.cos(angle) * speed;
                             p.vy = Math.sin(angle) * speed;
                             
-                            // Introduce some drag to actual explosion so they slow down
-                            p.drag = Math.random() * 0.05 + 0.92;
+                            // High drag so they heavily brake and simulate Vanta node drifting 
+                            p.drag = Math.random() * 0.04 + 0.88; 
                         });
 
-                        // Add drag to explosion loop organically
-                        const oldAnimate = animate;
-
-                        // Give them 1 second to watch the explosion, then fade
+                        // Give them 1.5 seconds to watch the explosion drift gracefully
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
-                            }, 2500); // Wait for the new 2.5s CSS animation
-                        }, 800);
+                            }, 2500); // Wait for the 2.5s CSS animation
+                        }, 1200); 
                     }
 
                     if (phase === 'explode') {
-                        // Apply drag during explosion so they drift majestically
+                        // Apply drag during explosion so they drift majestically into place
                         particles.forEach(p => {
-                            p.vx *= p.drag || 0.95;
-                            p.vy *= p.drag || 0.95;
+                            p.vx *= p.drag || 0.90;
+                            p.vy *= p.drag || 0.90;
+                            
+                            // Apply a tiny random drift to mimic Vanta.js ambient motion once stopped
+                            if (Math.abs(p.vx) < 0.2) p.vx += (Math.random() - 0.5) * 0.05;
+                            if (Math.abs(p.vy) < 0.2) p.vy += (Math.random() - 0.5) * 0.05;
                         });
                     }
 
