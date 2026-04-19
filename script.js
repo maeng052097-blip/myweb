@@ -120,15 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (phase === 'gather') {
                             if (!p.isGathered) {
-                                // Exponential acceleration (Gravity)
-                                // Slower, drawn-out gather phase for more suspense
-                                const gravity = Math.pow(gatherFrame / 90, 3) * 0.12; 
+                                // Linear gravity ramp to ensure smooth acceleration without uncontrolled snapping
+                                const gravity = Math.min(gatherFrame * 0.002, 0.5); 
                                 
                                 p.vx += (dx / (dist || 1)) * gravity;
                                 p.vy += (dy / (dist || 1)) * gravity;
                                 
-                                p.vx *= 0.96; // Higher drift
-                                p.vy *= 0.96;
+                                // Hard cap the movement speed so the eye can track the stars moving
+                                const currentSpeed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+                                // The maximum speed limit also raises slowly over time, capping at 12px/frame
+                                const maxSpeed = Math.min(gatherFrame * 0.08, 12); 
+                                if (currentSpeed > maxSpeed) {
+                                    p.vx = (p.vx / currentSpeed) * maxSpeed;
+                                    p.vy = (p.vy / currentSpeed) * maxSpeed;
+                                }
                                 
                                 if (dist < 25) {
                                     p.isGathered = true;
@@ -190,25 +195,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                        // Explode outward - massively increased speed to cover the entire screen
+                        // Explode outward - massively reduced velocity so the user can easily observe the stars flying away
                         particles.forEach(p => {
                             const angle = Math.random() * Math.PI * 2;
-                            const speed = Math.random() * 70 + 30; // Dramatically increased speed for bigger range burst
+                            // Slower explosion to track the movement with eyes easily
+                            const speed = Math.random() * 8 + 4; 
                             p.vx = Math.cos(angle) * speed;
                             p.vy = Math.sin(angle) * speed;
                             
-                            // Slightly reduced drag to let them fly further before stopping
-                            p.drag = Math.random() * 0.03 + 0.90; 
+                            // High drag changed to very light drag so they carry their momentum fully across the screen
+                            p.drag = 0.99; 
                         });
 
-                        // Give them a longer moment (1.2s) to watch the explosion drift majestically
+                        // Slower explosion means we should give them more time (2.5s) to watch it spread
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
-                            }, 1200); // Fast 1.2s CSS fade out animation
-                        }, 1200); 
+                            }, 1200); // 1.2s CSS fade out animation
+                        }, 2500); 
                     }
 
                     if (phase === 'explode') {
