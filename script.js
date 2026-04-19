@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,
-            color: 0x22d3ee,       // Accent cyan
+            color: 0x0a6c8e,       // Darkened Accent cyan
             backgroundColor: 0x000000, 
             backgroundAlpha: 0.0,  // Transparent to let Aurora show through
             points: 12.00,
