@@ -54,126 +54,144 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (index2 < text2.length) {
                     typewriterEl.innerHTML += text2[index2];
                     index2++;
-                    setTimeout(typeText2, 50);
+                    setTimeout(typeText2, 80);
                 } else {
-                    // Start sequence after completion
-                    setTimeout(startBigBang, 800);
+                    // Dramatic pause after text completes
+                    setTimeout(startBigBang, 1800);
                 }
             }
             
             typeText1();
-        }, 1200); 
+        }, 1500); 
         
         function startBigBang() {
-            // Fade out the text container smoothly
-            typewriterEl.parentElement.style.transition = 'opacity 0.6s ease';
+            // Fade out the text container slowly
+            typewriterEl.parentElement.style.transition = 'opacity 1.5s ease';
             typewriterEl.parentElement.style.opacity = '0';
             
-            // Create particle canvas
-            const canvas = document.createElement('canvas');
-            canvas.style.position = 'absolute';
-            canvas.style.top = '0';
-            canvas.style.left = '0';
-            canvas.style.width = '100vw';
-            canvas.style.height = '100vh';
-            canvas.style.zIndex = '-1'; 
-            overlay.insertBefore(canvas, overlay.firstChild);
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const ctx = canvas.getContext('2d');
-            
-            let particles = [];
-            let phase = 'gather'; 
-            let center = { x: canvas.width / 2, y: canvas.height / 2 };
-
-            // Create particles scattered at edges
-            for(let i=0; i<150; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.max(canvas.width, canvas.height); // spawn outside
-                particles.push({
-                    x: center.x + Math.cos(angle) * distance,
-                    y: center.y + Math.sin(angle) * distance,
-                    vx: 0,
-                    vy: 0,
-                    size: Math.random() * 2 + 1,
-                    hue: Math.random() > 0.5 ? 188 : 217
-                });
-            }
-
-            function animate() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // trailing effect
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Wait for text to fade before showing particles
+            setTimeout(() => {
+                const canvas = document.createElement('canvas');
+                canvas.style.position = 'absolute';
+                canvas.style.top = '0';
+                canvas.style.left = '0';
+                canvas.style.width = '100vw';
+                canvas.style.height = '100vh';
+                canvas.style.zIndex = '-1'; 
+                overlay.insertBefore(canvas, overlay.firstChild);
                 
-                let allGathered = true;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const ctx = canvas.getContext('2d');
+                
+                let particles = [];
+                let phase = 'gather'; 
+                let center = { x: canvas.width / 2, y: canvas.height / 2 };
 
-                particles.forEach(p => {
-                    const dx = center.x - p.x;
-                    const dy = center.y - p.y;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
+                // Create particles scattered widely
+                for(let i=0; i<150; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.max(canvas.width, canvas.height) + Math.random() * 500; 
+                    particles.push({
+                        x: center.x + Math.cos(angle) * distance,
+                        y: center.y + Math.sin(angle) * distance,
+                        vx: 0,
+                        vy: 0,
+                        size: Math.random() * 2 + 1,
+                        hue: Math.random() > 0.5 ? 188 : 217
+                    });
+                }
 
-                    if (phase === 'gather') {
-                        // Accelerate towards center
-                        p.vx += dx * 0.008;
-                        p.vy += dy * 0.008;
-                        
-                        // Friction
-                        p.vx *= 0.95;
-                        p.vy *= 0.95;
-                        
-                        if (dist > 15) allGathered = false;
+                function animate() {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; // softer trailing effect
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    let allGathered = true;
 
-                        // Constellation lines
-                        for(let i=0; i<Math.min(3, particles.length); i++){
-                            let p2 = particles[Math.floor(Math.random() * particles.length)];
-                            const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
-                            if(d2 < 100) {
-                                ctx.beginPath();
-                                ctx.moveTo(p.x, p.y);
-                                ctx.lineTo(p2.x, p2.y);
-                                ctx.strokeStyle = `rgba(34, 211, 238, ${0.15 - d2/800})`;
-                                ctx.stroke();
+                    particles.forEach(p => {
+                        const dx = center.x - p.x;
+                        const dy = center.y - p.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+
+                        if (phase === 'gather') {
+                            // Dramatically slower acceleration
+                            p.vx += dx * 0.0006;
+                            p.vy += dy * 0.0006;
+                            
+                            // Lighter friction implies longer drifting time before snap
+                            p.vx *= 0.98;
+                            p.vy *= 0.98;
+                            
+                            if (dist > 15) allGathered = false;
+
+                            // Constellation lines
+                            for(let i=0; i<Math.min(3, particles.length); i++){
+                                let p2 = particles[Math.floor(Math.random() * particles.length)];
+                                const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                                if(d2 < 120) {
+                                    ctx.beginPath();
+                                    ctx.moveTo(p.x, p.y);
+                                    ctx.lineTo(p2.x, p2.y);
+                                    ctx.strokeStyle = `rgba(34, 211, 238, ${0.1 - d2/1200})`;
+                                    ctx.stroke();
+                                }
                             }
                         }
-                    }
 
-                    p.x += p.vx;
-                    p.y += p.vy;
+                        p.x += p.vx;
+                        p.y += p.vy;
 
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
-                    ctx.fill();
-                });
-
-                if (phase === 'gather' && allGathered) {
-                    phase = 'explode';
-                    
-                    // Center flash
-                    ctx.fillStyle = 'white';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    // Explode outward
-                    particles.forEach(p => {
-                        const angle = Math.random() * Math.PI * 2;
-                        const speed = Math.random() * 40 + 15;
-                        p.vx = Math.cos(angle) * speed;
-                        p.vy = Math.sin(angle) * speed;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
+                        ctx.fill();
                     });
 
-                    // Trigger overlay fade out showing the actual site behind it
-                    overlay.classList.add('fade-out-animation');
-                    setTimeout(() => {
-                        overlay.style.display = 'none';
-                        document.body.style.overflow = '';
-                    }, 1000);
-                }
+                    if (phase === 'gather' && allGathered) {
+                        phase = 'explode';
+                        
+                        // Softer Center flash
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                if (overlay.style.display !== 'none') {
-                    requestAnimationFrame(animate);
+                        // Explode outward with drastically reduced speed so it looks like floating debris rather than bullets
+                        particles.forEach(p => {
+                            const angle = Math.random() * Math.PI * 2;
+                            const speed = Math.random() * 15 + 5;
+                            p.vx = Math.cos(angle) * speed;
+                            p.vy = Math.sin(angle) * speed;
+                            
+                            // Introduce some drag to actual explosion so they slow down
+                            p.drag = Math.random() * 0.05 + 0.92;
+                        });
+
+                        // Add drag to explosion loop organically
+                        const oldAnimate = animate;
+
+                        // Give them 1 second to watch the explosion, then fade
+                        setTimeout(() => {
+                            overlay.classList.add('fade-out-animation');
+                            setTimeout(() => {
+                                overlay.style.display = 'none';
+                                document.body.style.overflow = '';
+                            }, 2500); // Wait for the new 2.5s CSS animation
+                        }, 800);
+                    }
+
+                    if (phase === 'explode') {
+                        // Apply drag during explosion so they drift majestically
+                        particles.forEach(p => {
+                            p.vx *= p.drag || 0.95;
+                            p.vy *= p.drag || 0.95;
+                        });
+                    }
+
+                    if (overlay.style.display !== 'none') {
+                        requestAnimationFrame(animate);
+                    }
                 }
-            }
-            animate();
+                animate();
+            }, 800); // Wait slightly after text starts fading before gathering
         }
     }
     
