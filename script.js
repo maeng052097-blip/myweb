@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     index2++;
                     setTimeout(typeText2, 80);
                 } else {
-                    // Dramatic pause after text completes
-                    setTimeout(startBigBang, 1800);
+                    // Shorter pause after text completes
+                    setTimeout(startBigBang, 800);
                 }
             }
             
@@ -65,11 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500); 
         
         function startBigBang() {
-            // Fade out the text container slowly
-            typewriterEl.parentElement.style.transition = 'opacity 1.5s ease';
+            // Fade out the text container smoothly over 1s
+            typewriterEl.parentElement.style.transition = 'opacity 1s ease';
             typewriterEl.parentElement.style.opacity = '0';
             
-            // Wait for text to fade before showing particles
+            // Wait shortly for text to fade before showing particles
             setTimeout(() => {
                 const canvas = document.createElement('canvas');
                 canvas.style.position = 'absolute';
@@ -121,13 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (phase === 'gather') {
                             if (!p.isGathered) {
                                 // Exponential acceleration (Gravity)
-                                const gravity = Math.pow(gatherFrame / 60, 3) * 0.15; 
+                                // Slower, drawn-out gather phase for more suspense
+                                const gravity = Math.pow(gatherFrame / 90, 3) * 0.12; 
                                 
                                 p.vx += (dx / (dist || 1)) * gravity;
                                 p.vy += (dy / (dist || 1)) * gravity;
                                 
-                                p.vx *= 0.95; // Enough friction to allow slow start
-                                p.vy *= 0.95;
+                                p.vx *= 0.96; // Higher drift
+                                p.vy *= 0.96;
                                 
                                 if (dist < 25) {
                                     p.isGathered = true;
@@ -200,14 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             p.drag = Math.random() * 0.03 + 0.90; 
                         });
 
-                        // Give them only a brief moment (0.4s) to watch the explosion drift gracefully before quickly transitioning
+                        // Give them a longer moment (1.2s) to watch the explosion drift majestically
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
                             }, 1200); // Fast 1.2s CSS fade out animation
-                        }, 400); 
+                        }, 1200); 
                     }
 
                     if (phase === 'explode') {
