@@ -1,26 +1,14 @@
-<nav class="navbar">
-    <div class="container nav-container">
-        <a href="{{ site.baseurl }}/#home" class="nav-logo">MSY PORTFOLIO</a>
-        <ul class="nav-links">
-            {% if page.url contains 'board' %}
-            <li><a href="{{ site.baseurl }}/" class="back-btn">← 포트폴리오로 돌아가기</a></li>
-            {% else %}
-            <li><a href="{{ site.baseurl }}/#about">소개</a></li>
-            <li><a href="{{ site.baseurl }}/#roadmap">로드맵</a></li>
-            <li><a href="{{ site.baseurl }}/#career">경험</a></li>
-            <li><a href="{{ site.baseurl }}/#projects">프로젝트</a></li>
-            <li><a href="{{ site.baseurl }}/#bootcamp">부트캠프</a></li>
-            <li><a href="{{ site.baseurl }}/#competencies">역량</a></li>
-            <li><a href="{{ site.baseurl }}/#certifications">자격증</a></li>
-            <li><a href="{{ site.baseurl }}/#club">동아리</a></li>
-            <li><a href="{{ site.baseurl }}/#contact">연락처</a></li>
-            <li><a href="{{ site.baseurl }}/board.html">게시판</a></li>
-            {% endif %}
-        </ul>
-        {% unless page.url contains 'board' %}
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
-            <span></span><span></span><span></span>
-        </button>
-        {% endunless %}
-    </div>
+<nav>
+	<a class="nav-toggle" id="open-nav" href="#">&#9776;</a>
+	{% for link in site.data.navigation %}
+		{% assign class = "" %}
+		{% if link.highlight %}
+			{% assign class = class | append: " highlight" %}
+		{% endif %}
+
+		{% if link.link == page.url %}
+			{% assign class = class | append: " active" %}
+		{% endif %}
+		<a href="{% include relative-src.html src=link.link %}" class="{{ class }}" {% if link.new_window %}target="_blank"{% endif %}>{{ link.name }}</a>
+	{% endfor %}
 </nav>

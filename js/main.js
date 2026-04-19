@@ -37,3 +37,26 @@
 		}
 	});
 })();
+
+    // Scroll Animation Observer (Bi-directional)
+    const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.15
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+            } else {
+                // Remove the class when it leaves the viewport to animate again when scrolling back
+                entry.target.classList.remove("is-visible");
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll(".animate-on-scroll").forEach(el => {
+        scrollObserver.observe(el);
+    });
+

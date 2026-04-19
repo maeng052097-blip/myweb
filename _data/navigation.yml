@@ -1,6 +1,10 @@
-- name: Blog
-  link: /blog/
-- name: About
-  link: /about/
-- name: Contact
-  link: /contact/
+- name: 소개
+  link: /#about
+- name: 로드맵
+  link: /#roadmap
+- name: 경험 & 역량
+  link: /#career
+- name: 프로젝트
+  link: /#projects
+- name: 자유게시판
+  link: /#board

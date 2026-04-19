@@ -1,27 +1,11 @@
 left_links:
-  - name: Blog
-    link: /blog/
-  - name: About
-    link: /about/
-  - name: Contact
-    link: /contact/
+  - name: 맹세영 | 설비 × AI 융합형 엔지니어 포트폴리오
+    link: /
 right_links:
-  - name:
-    link: https://facebook.com/cloudcannon
+  - name: Email
+    link: mailto:maengsy0520@naver.com
+    social_icon: Email
+  - name: GitHub
+    link: https://github.com/maeng052097-blip
     new_window: true
-    social_icon: Facebook
-  - name:
-    link: https://twitter.com/cloudcannon
-    social_icon: Twitter
-    new_window: true
-  - name:
-    link: https://youtube.com/c/cloudcannon
-    social_icon: YouTube
-    new_window: true
-  - name:
-    link: https://instagram.com/
-    social_icon: Instagram
-    new_window: true
-  - name:
-    link: /feed.xml
-    social_icon: RSS
+    social_icon: ""
