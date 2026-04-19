@@ -4,6 +4,32 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Initialize Lucide Icons if available
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    // Initialize Vanta.js NET effect on the hero background
+    if (typeof VANTA !== 'undefined') {
+        VANTA.NET({
+            el: ".hero-background",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x22d3ee,       // Accent cyan
+            backgroundColor: 0x000000, // Will be overridden by alpha
+            backgroundAlpha: 0.0,  // Transparent to let Aurora show through
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: true
+        });
+    }
+
     // =============================================
     // 1. FULL-PAGE PARTICLE CANVAS (Antigravity style)
     // =============================================
