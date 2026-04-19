@@ -176,15 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                        // Explode outward - calculated drag to stop gracefully
+                        // Explode outward - massively increased speed to cover the entire screen
                         particles.forEach(p => {
                             const angle = Math.random() * Math.PI * 2;
-                            const speed = Math.random() * 25 + 10;
+                            const speed = Math.random() * 70 + 30; // Dramatically increased speed for bigger range burst
                             p.vx = Math.cos(angle) * speed;
                             p.vy = Math.sin(angle) * speed;
                             
-                            // High drag so they heavily brake and simulate Vanta node drifting 
-                            p.drag = Math.random() * 0.04 + 0.88; 
+                            // Slightly reduced drag to let them fly further before stopping
+                            p.drag = Math.random() * 0.03 + 0.90; 
                         });
 
                         // Give them only a brief moment (0.4s) to watch the explosion drift gracefully before quickly transitioning
