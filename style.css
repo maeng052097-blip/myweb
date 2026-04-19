@@ -4,10 +4,10 @@
     --samsung-blue-dark: #002f6c;
     --text-main: #f8fafc;
     --text-light: #cbd5e1;
-    --bg-white: #0a0f1e;
-    --bg-light: #161e31;
-    --bg-gray: #334155;
-    --border-color: #1e293b;
+    --bg-white: rgba(10, 15, 30, 0.5);
+    --bg-light: rgba(22, 30, 49, 0.4);
+    --bg-gray: rgba(51, 65, 85, 0.5);
+    --border-color: rgba(255, 255, 255, 0.08);
     --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
@@ -31,18 +31,32 @@ body {
     font-family: 'Noto Sans KR', 'Inter', sans-serif;
     color: var(--text-main);
     background-color: #030614;
-    background-image: 
-        radial-gradient(1px 1px at 25px 5px, rgba(255,255,255,0.8) 100%, transparent),
-        radial-gradient(1px 1px at 50px 25px, rgba(255,255,255,0.8) 100%, transparent),
-        radial-gradient(1px 1px at 125px 20px, rgba(255,255,255,0.6) 100%, transparent),
-        radial-gradient(1.5px 1.5px at 50px 75px, rgba(255,255,255,1) 100%, transparent),
-        radial-gradient(2px 2px at 15px 125px, rgba(255,255,255,0.8) 100%, transparent),
-        radial-gradient(2.5px 2.5px at 110px 80px, rgba(255,255,255,1) 100%, transparent);
-    background-size: 200px 200px;
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
     scroll-behavior: smooth;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    background: 
+        radial-gradient(circle at 15% 50%, rgba(34, 211, 238, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(7, 76, 145, 0.2) 0%, transparent 60%),
+        radial-gradient(circle at 30% 10%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
+    animation: auroraDrift 20s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, 3%); }
 }
 
 /* Subtle noise texture overlay */
@@ -430,24 +444,7 @@ body::after {
 }
 
 .hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    opacity: 0.6;
-    background: 
-        radial-gradient(circle at 30% 40%, rgba(106, 13, 173, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 70% 60%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(7, 76, 145, 0.2) 0%, transparent 70%);
-    background-size: cover;
-    animation: galaxyPulse 15s ease-in-out infinite alternate;
-}
-
-@keyframes galaxyPulse {
-    0% { transform: scale(1); opacity: 0.5; }
-    100% { transform: scale(1.1); opacity: 0.8; }
+    display: none;
 }
 
 .hero-content {
@@ -555,9 +552,21 @@ body::after {
 .bootcamp-card,
 .cert-card,
 .academic-card,
-.contact-card {
+.contact-card,
+.timeline-content,
+.board-preview,
+.dx-info,
+.roadmap-semester,
+.subject-card,
+.infographic-container,
+.growth-chart-wrapper,
+.club-main > div {
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
 }
 
 .vision-card::before,
