@@ -30,7 +30,15 @@
 body {
     font-family: 'Noto Sans KR', 'Inter', sans-serif;
     color: var(--text-main);
-    background-color: var(--bg-white);
+    background-color: #030614;
+    background-image: 
+        radial-gradient(1px 1px at 25px 5px, rgba(255,255,255,0.8) 100%, transparent),
+        radial-gradient(1px 1px at 50px 25px, rgba(255,255,255,0.8) 100%, transparent),
+        radial-gradient(1px 1px at 125px 20px, rgba(255,255,255,0.6) 100%, transparent),
+        radial-gradient(1.5px 1.5px at 50px 75px, rgba(255,255,255,1) 100%, transparent),
+        radial-gradient(2px 2px at 15px 125px, rgba(255,255,255,0.8) 100%, transparent),
+        radial-gradient(2.5px 2.5px at 110px 80px, rgba(255,255,255,1) 100%, transparent);
+    background-size: 200px 200px;
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
@@ -331,7 +339,7 @@ body::after {
 }
 
 .text-white { color: var(--bg-white) !important; }
-.bg-light { background-color: var(--bg-light); }
+.bg-light { background-color: transparent !important; }
 .bg-samsung-blue { background-color: var(--samsung-blue); }
 .bg-samsung-blue .section-title::after { background: linear-gradient(90deg, rgba(255,255,255,0.6), #fff, rgba(255,255,255,0.6)); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
 
@@ -428,19 +436,18 @@ body::after {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.4;
-    background-image: 
-        linear-gradient(to right, rgba(34, 211, 238, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-    animation: backgroundShift 20s linear infinite;
+    opacity: 0.6;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(106, 13, 173, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(7, 76, 145, 0.2) 0%, transparent 70%);
+    background-size: cover;
+    animation: galaxyPulse 15s ease-in-out infinite alternate;
 }
 
-@keyframes backgroundShift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(60px, 60px); }
+@keyframes galaxyPulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.1); opacity: 0.8; }
 }
 
 .hero-content {
