@@ -101,11 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
+                let gatherFrame = 0;
+
                 function animate() {
                     ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // trailing effect
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
                     let allGathered = true;
+                    
+                    if (phase === 'gather') {
+                        gatherFrame++;
+                    }
 
                     particles.forEach(p => {
                         const dx = center.x - p.x;
@@ -113,14 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dist = Math.sqrt(dx*dx + dy*dy);
 
                         if (phase === 'gather') {
-                            // Dramatically slower acceleration
-                            p.vx += dx * 0.0006;
-                            p.vy += dy * 0.0006;
+                            // Exponential acceleration (Gravity)
+                            // Starts at 0, slowly climbs, then slingshots them
+                            const gravity = Math.pow(gatherFrame / 60, 3) * 0.15; 
                             
-                            p.vx *= 0.98;
-                            p.vy *= 0.98;
+                            p.vx += (dx / (dist || 1)) * gravity;
+                            p.vy += (dy / (dist || 1)) * gravity;
                             
-                            if (dist > 15) allGathered = false;
+                            p.vx *= 0.95; // Enough friction to allow slow start but still speeds up
+                            p.vy *= 0.95;
+                            
+                            if (dist > 25) allGathered = false;
 
                             // Constellation lines using Vanta's Dark Cyan color (10, 108, 142)
                             for(let i=0; i<Math.min(4, particles.length); i++){
@@ -178,14 +187,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             p.drag = Math.random() * 0.04 + 0.88; 
                         });
 
-                        // Give them 1.5 seconds to watch the explosion drift gracefully
+                        // Give them only a brief moment (0.4s) to watch the explosion drift gracefully before quickly transitioning
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
-                            }, 2500); // Wait for the 2.5s CSS animation
-                        }, 1200); 
+                            }, 1200); // Fast 1.2s CSS fade out animation
+                        }, 400); 
                     }
 
                     if (phase === 'explode') {
@@ -195,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             p.vy *= p.drag || 0.90;
                             
                             // Apply a tiny random drift to mimic Vanta.js ambient motion once stopped
-                            if (Math.abs(p.vx) < 0.2) p.vx += (Math.random() - 0.5) * 0.05;
-                            if (Math.abs(p.vy) < 0.2) p.vy += (Math.random() - 0.5) * 0.05;
+                            if (Math.abs(p.vx) < 0.3) p.vx += (Math.random() - 0.5) * 0.08;
+                            if (Math.abs(p.vy) < 0.3) p.vy += (Math.random() - 0.5) * 0.08;
                         });
                     }
 
