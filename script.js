@@ -195,25 +195,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                        // Explode outward - calculated to spread then brake to a firm stop
+                        // Explode outward - massively reduced velocity so the user can easily observe the stars flying away
                         particles.forEach(p => {
                             const angle = Math.random() * Math.PI * 2;
-                            const speed = Math.random() * 12 + 6; // Noticeable initial burst
+                            // Slower explosion to track the movement with eyes easily
+                            const speed = Math.random() * 8 + 4; 
                             p.vx = Math.cos(angle) * speed;
                             p.vy = Math.sin(angle) * speed;
                             
-                            // Stronger drag so they forcefully "brake" and visually stop within ~1 second
-                            p.drag = 0.93; 
+                            // Very light drag so they carry their momentum fully across the screen instead of stopping
+                            p.drag = 0.99; 
                         });
 
-                        // As soon as the stars come to a firm stop, fade into the existing page
+                        // Slower explosion means we should give them more time (2.5s) to watch it spread before transitioning
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
                             }, 1200); // 1.2s CSS fade out animation
-                        }, 1200); 
+                        }, 2500); 
                     }
 
                     if (phase === 'explode') {
