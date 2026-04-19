@@ -13,3 +13,9 @@
 @import "navigation";
 @import "footer";
 @import "custom";
+
+// Anchor scroll padding for fixed header
+:target {
+    scroll-margin-top: 100px;
+}
+

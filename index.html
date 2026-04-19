@@ -6,164 +6,191 @@ bottom_image: https://unsplash.it/2000/1322?a=.png
 layout: default
 ---
 
-<section class="hero" id="home" style="background-image: url('{{ site.baseurl }}/images/_screenshot.jpg'); background-color: #f7fbff; background-blend-mode: overlay;">
+<!-- 1. HERO -->
+<section class="hero" id="home" style="background-image: url('{{ site.baseurl }}/images/_screenshot.jpg')">
     <div class="inner-hero text-container">
         <div class="hero-text-container animate-on-scroll">
-            <h1 class="editable" style="color: #004d99; font-weight: 800;">맹세영</h1>
-            <h3 style="color: #333; margin-top: -10px; margin-bottom: 20px;">설비 × AI 융합형 엔지니어</h3>
-            <p class="subtext editable" style="color: #555;">"현장의 설비를 이해하고, AI로 가동률의 한계를 돌파하는 엔지니어"</p>
+            <h1 class="editable">맹세영</h1>
+            <h3 class="editable">설비 × AI 융합형 엔지니어</h3>
+            <p class="subtext editable">"현장의 설비를 이해하고, AI로 가동률의 한계를 돌파하는 엔지니어"</p>
             <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
-                <span style="background: rgba(0,77,153,0.1); color: #004d99; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">⚙️ PLC 시퀀스 제어</span>
-                <span style="background: rgba(0,77,153,0.1); color: #004d99; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">🤖 AI/데이터 분석</span>
-                <span style="background: rgba(0,77,153,0.1); color: #004d99; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">🔧 설비 유지보수</span>
+                <span>⚙️ PLC 시퀀스 제어</span>
+                <span>🤖 AI/데이터 분석</span>
+                <span>🔧 설비 유지보수</span>
+                <span>📊 트러블슈팅</span>
             </div>
+            <div class="cta button alt"><a href="#about">포트폴리오 보기</a></div>
         </div>
     </div>
-    <div class="learn-more animate-on-scroll stagger-2"><a href="#about">포트폴리오 보기 <span class="arrow">&#x25BC;</span></a></div>
+    <div class="learn-more animate-on-scroll stagger-2"><a href="#about">Learn more <span class="arrow">&#x25BC;</span></a></div>
 </section>
 
 <div class="content content-section">
 
-    <!-- About Section -->
+    <!-- 2. ABOUT -->
     <section class="info" id="about">
         <div class="container flex">
             <div class="text animate-on-scroll">
-                <h2 class="editable" style="color:#004d99;">삼성 인재상 × 맹세영</h2>
+                <h2 class="editable">삼성 인재상 × 맹세영</h2>
                 <p class="editable">삼성전자가 추구하는 <strong>열정 · 창의혁신 · 인간미</strong> 3대 인재상에 부합하는 엔지니어입니다.</p>
-                <ul style="list-style: none; padding-left: 0; margin-top: 20px;">
-                    <li style="margin-bottom: 15px;"><strong>🔥 열정:</strong> 군 전역 후 전공학사 심화 학습 및 ADsP 지속 도전.</li>
-                    <li style="margin-bottom: 15px;"><strong>💡 창의혁신:</strong> 전통적인 PLC 설비 제어에 AI 적용 가능성을 탐구 (자율주행 융합 경험).</li>
-                    <li style="margin-bottom: 15px;"><strong>🤝 인간미:</strong> 편의점 야간 2년 무결점 운영 등 투철한 책임감.</li>
+                <ul>
+                    <li>🔥 <strong>열정 (끊임없는 도전):</strong> 군 전역 후 전공학사(4년제) 과정을 선택하여 심화 학습에 도전하고 있습니다. 반도체 부트캠프, ADsP, 정보처리기사 등 끊임없이 자기 개발에 투자합니다.</li>
+                    <li>💡 <strong>창의혁신 (AI와 현장의 융합):</strong> 전통적인 설비 제어(PLC)에 AI 에이전틱 아키텍팅을 접목하는 융합적 사고를 합니다. 자율주행 로봇 SW를 개발하며 가능성을 실험하고 있습니다.</li>
+                    <li>🤝 <strong>인간미 (책임감과 성실):</strong> 편의점 야간 알바 약 2년간 무결점 재고관리를 수행하였고, 레이더 병과 만기전역으로 규정 기반 장비 운용 능력을 입증했습니다.</li>
                 </ul>
             </div>
             <div class="image animate-on-scroll stagger-1">
-                <img class="editable" src="{{ site.baseurl }}/images/infographic.jpg" alt="인포그래픽" style="border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);" />
+                <img class="editable" src="{{ site.baseurl }}/images/infographic.jpg" alt="인포그래픽" />
             </div>
         </div>
     </section>
 
-    <!-- Roadmap & Bootcamp -->
-    <section class="info" id="roadmap" style="background-color: #fafbfc;">
-        <div class="container flex" style="flex-direction: row-reverse;">
+    <!-- 3. ROADMAP -->
+    <section class="info" id="roadmap">
+        <div class="container flex">
+            <div class="image animate-on-scroll stagger-1">
+                <img class="editable" src="{{ site.baseurl }}/images/ai_research.png" alt="Roadmap" />
+            </div>
             <div class="text animate-on-scroll">
-                <h2 class="editable" style="color:#004d99;">학사 로드맵 & 부트캠프</h2>
-                <p class="editable"><strong>동양미래대학교 로봇소프트웨어과 전공학사</strong> 과정과 <strong>반도체 부트캠프</strong>를 통해 설비기술 핵심 역량을 완성하고 있습니다.</p>
-                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-top: 20px;">
-                    <h3 style="font-size: 1.1rem; color: #333;">🏭 반도체 부트캠프 (진행 중)</h3>
-                    <p style="font-size: 0.95rem; color: #666;">- 8대 공정 및 설비 유지보수 이해<br>- 설비 자동화 및 PM/BM 역량 확보</p>
+                <h2 class="editable">📚 학사 로드맵</h2>
+                <p class="editable">동양미래대학교 로봇소프트웨어과 | 전공학사 4년 과정 (2028년 졸업 예정)</p>
+                
+                <div style="margin-top:20px;">
+                    <h4>1학년 수료 과목</h4>
+                    <p>3차원 CAD, 디지털논리회로, 로봇기초실습, 전자회로, 창의적 공학설계, 파이썬, 아두이노, 로봇공학기초(기구학)</p>
+                    
+                    <h4>2학년 수강 현황</h4>
+                    <p>윈도우 프로그래밍, 웹프로그래밍, 인공지능개론, PLC프로그래밍, 마이크로컨트롤러</p>
+                    
+                    <h4>향후 계획</h4>
+                    <p>캡스톤 디자인 2차, 3차 진행 및 반도체 설비 제어 심화. 전공학사 과정 완료 후 삼성전자 DS 설비기술 직무 지원.</p>
+                    
+                    <p><strong>이수 과목 → 직무 연관도:</strong> 설비/기계 5과목, 전기/전자 3과목, 자동화 6과목, SW 5과목 이수.</p>
                 </div>
             </div>
-            <div class="image animate-on-scroll stagger-1">
-                <img class="editable" src="{{ site.baseurl }}/images/ai_research.png" alt="Roadmap Graphic" style="border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);" />
-            </div>
         </div>
     </section>
 
-    <!-- Career & Competencies -->
-    <section class="info" id="career">
+    <!-- 4. BOOTCAMP -->
+    <section class="info" id="bootcamp">
         <div class="container flex">
             <div class="text animate-on-scroll">
-                <h2 class="editable" style="color:#004d99;">경험 & 핵심 역량</h2>
-                <p class="editable">총체적 하드웨어 이해력과 데이터 디버깅 역량을 보유하고 있습니다.</p>
-                <div style="margin-top: 20px;">
-                    <h4 style="margin-bottom: 5px;">⚙️ PLC 시퀀스 제어 숙련</h4>
-                    <p style="font-size: 0.9rem; color: #555;">GX-Works3 래더 로직 설계, 자기유지 및 인터록 안전 논리 구축.</p>
-                    <h4 style="margin-bottom: 5px; margin-top: 15px;">🔍 데이터 기반 트러블슈팅</h4>
-                    <p style="font-size: 0.9rem; color: #555;">통신 간섭, 센서 오작동 등의 하드웨어 디버깅 경험.</p>
-                    <h4 style="margin-bottom: 5px; margin-top: 15px;">🎖️ 규정 기반 장비 운용 체화</h4>
-                    <p style="font-size: 0.9rem; color: #555;">육군 레이더 병과 만기 전역으로 정밀 장비 매뉴얼 숙달.</p>
-                </div>
-            </div>
-            <div class="image animate-on-scroll stagger-1">
-                <img class="editable" src="{{ site.baseurl }}/images/PLC.png" alt="PLC Competency" style="border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);" />
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="info" id="projects" style="background-color: #fafbfc;">
-        <div class="container flex" style="flex-direction: row-reverse;">
-            <div class="text animate-on-scroll">
-                <h2 class="editable" style="color:#004d99;">Engineering Projects</h2>
-                <p class="editable"><strong>8족 Klann Linkage 달리는 로봇 (Capstone)</strong></p>
-                <ul style="font-size: 0.95rem; color: #555; padding-left: 20px;">
-                    <li>SolidWorks를 활용한 메커니즘 해석 및 CAD 직접 설계</li>
-                    <li>아크릴 가공 및 4인 팀 협업을 통한 하드웨어 제작 완수</li>
-                    <li>설비 도면 해석과 기구적 메커니즘 트러블슈팅 역량 증명</li>
+                <h2 class="editable">🏭 반도체 부트캠프</h2>
+                <p class="editable">반도체 부트캠프 사업단 (2026년 7월 수료 예정)</p>
+                
+                <ul>
+                    <li><strong>초급 (반도체 공정/설비 기초):</strong> 반도체 8대 공정 및 설비 기초 원리, 클린룸 환경 이해</li>
+                    <li><strong>중급 (설비 자동화/제어):</strong> 반도체 설비 운용 및 자동화 제어, 유지보수 (PM/BM 업무 핵심)</li>
+                    <li><strong>고급 (설비 설계/SW 운용):</strong> 반도체 장비 SW 운용 및 설비 개선/스마트팩토리 대응 역량 확보</li>
                 </ul>
-                <p class="editable" style="margin-top: 20px;"><strong>삼거리 신호등 로직 (Digital Logic)</strong></p>
-                <p style="font-size: 0.95rem; color: #555;">상태 천이표와 카르노맵을 활용한 신호 교차 오류 방지 무결점 논리 설계 달성.</p>
+                <p class="editable">설비의 운용부터 유지보수 전 과정을 체계적으로 학습하여 삼성전자 DS 설비기술에서 요구하는 PM/BM 역량을 구축합니다.</p>
             </div>
             <div class="image animate-on-scroll stagger-1">
-                <img class="editable" src="{{ site.baseurl }}/images/cad.png" alt="CAD Projects" style="border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);" />
+                <img class="editable" src="http://placehold.it/650x500" alt="Bootcamp" />
             </div>
         </div>
     </section>
 
-    <!-- Board Section Form (Integrated) -->
-    <section class="info" id="board" style="padding-bottom: 80px;">
+    <!-- 5. COMPETENCIES -->
+    <section class="info" id="competencies">
+        <div class="container flex">
+            <div class="image animate-on-scroll stagger-1">
+                <img class="editable" src="{{ site.baseurl }}/images/PLC.png" alt="PLC Competency" />
+            </div>
+            <div class="text animate-on-scroll">
+                <h2 class="editable">핵심 역량 (5 Core Competencies)</h2>
+                <p class="editable">총체적 하드웨어 이해력과 데이터 디버깅 역량 보유.</p>
+                <ol>
+                    <li><strong>PLC 시퀀스 제어:</strong> GX-Works3 활용 래더 라인 설계, 자기유지 및 인터록 안전 논리 구축.</li>
+                    <li><strong>데이터 기반 트러블슈팅:</strong> 타이머 오류, 통신 간섭, 센서 오작동 등 논리적 디버깅 수행.</li>
+                    <li><strong>AI/DX 융합:</strong> AI 역량을 기반으로 스마트팩토리 예지보전 아이디어 적용.</li>
+                    <li><strong>설비 H/W 이해 및 가공:</strong> 3차원 CAD 활용 부품 설계 및 직접 가공 제작 수행 능력.</li>
+                    <li><strong>SW 개발 및 모니터링:</strong> Python, C# 활용 데이터 수집 및 시각화 능력 확보.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CLUB -->
+    <section class="info" id="club">
+        <div class="container flex">
+            <div class="text animate-on-scroll">
+                <h2 class="editable">🤖 UR 전공동아리 & 학교생활</h2>
+                <p class="editable">자율주행 로봇 제작 및 2026년 동양 EXPO 출품을 목표로 SW를 개발하고 있습니다.</p>
+                
+                <ul>
+                    <li><strong>역할:</strong> 소프트웨어 파트 전담</li>
+                    <li><strong>기술:</strong> 카메라 모듈 기반 물체인식(Object Detection), 레이더 모듈 장애물 감지 처리</li>
+                    <li><strong>성과 방향:</strong> 센서 융합 데이터를 통한 자율주행 알고리즘 개발 및 H/W와의 통합(SI) 설계.</li>
+                </ul>
+                <p class="editable"><strong>직무 가치:</strong> 센서 융합 기반 로봇 개발 경험은 반도체 자동 반송 시스템(AMHS) 및 설비 모니터링 센서 활용 시 직접적 강점으로 작용합니다.</p>
+            </div>
+            <div class="image animate-on-scroll stagger-1">
+                <!-- 동아리/증명 사진 대신 임의의 placeholder 활용 -->
+                <img class="editable" src="{{ site.baseurl }}/images/cad.png" alt="Projects" />
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CONTACT -->
+    <section class="info" id="contact">
+        <div class="container text-center animate-on-scroll">
+            <h2 class="editable">연락처 & 자격증 로드맵</h2>
+            <div style="margin-top: 30px;">
+                <p><strong>자격증:</strong> ADsP(준전문가) 취득 예정 / 정보처리기사 준비 예정 / TOEIC/OPIc 겨울방학 준비 / 1종 보통 운전면허 보유</p>
+                <p><strong>연락처:</strong> Email: maengsy0520@naver.com | Phone: 010-4618-8449 | GitHub: maeng052097-blip</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. BOARD -->
+    <section class="info" id="board" style="padding-bottom: 80px; background-color: #fafafa;">
         <div class="container">
-            <div class="text animate-on-scroll" style="text-align: center; max-width: 800px; margin: 0 auto; width: 100%;">
-                <h2 class="editable" style="color:#004d99;">자유게시판</h2>
-                <p class="editable">LocalStorage를 활용한 브라우저 내 CRUD 게시판 모듈입니다.</p>
+            <div class="text animate-on-scroll" style="text-align: center; width: 100%;">
+                <h2 class="editable">자유게시판</h2>
+                <p class="editable">기록을 남기거나 질문이 있으시면 게시판을 이용해주세요.</p>
             </div>
             
-            <div class="board-container animate-on-scroll stagger-1" style="margin-top: 30px;">
+            <!-- Frisco 테마에 어울리게 스타일 조정 (하지만 css 파일은 건들지 않음) -->
+            <div class="board-container animate-on-scroll stagger-1" style="margin: 30px auto; max-width: 800px; padding: 20px; background: white; border: 1px solid #eee; border-radius: 8px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <strong style="color: #333;">총 방명록: <span id="post-count" style="color: #004d99;">0</span>개</strong>
-                    <button id="open-write-btn" style="background: #004d99; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">📝 새 글 쓰기</button>
+                    <strong>총 방명록: <span id="post-count">0</span>개</strong>
+                    <button id="open-write-btn" class="button alt" style="padding: 10px 20px;">새 글 쓰기</button>
                 </div>
                 
-                <div id="no-posts" style="text-align: center; padding: 40px; color: #888;">
+                <div id="no-posts" style="text-align: center; padding: 40px;">
                     등록된 게시글이 없습니다. 첫 번째 글을 남겨보세요!
                 </div>
-                <!-- 게시물 리스트 컨테이너 -->
                 <div id="post-list" style="display: grid; gap: 15px;"></div>
             </div>
         </div>
     </section>
 
-    <section class="hero" id="contact" style="background-image: url('{{ site.baseurl }}/images/_screenshot.jpg'); background-color: #003366; background-blend-mode: multiply;">
-        <div class="inner-hero text-container">
-            <div class="hero-text-container animate-on-scroll">
-                <h2 class="editable" style="color: white;">설비 가동률의 한계를 돌파합니다.</h2>
-                <p class="subtext editable" style="color: rgba(255,255,255,0.8);">항상 현장에서 답을 찾는 엔지니어가 되겠습니다.</p>
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <a href="mailto:maengsy0520@naver.com" class="button alt" style="background: white; color: #003366; font-weight: bold;">이메일: maengsy0520@naver.com</a>
-                    <a href="https://github.com/maeng052097-blip" target="_blank" class="button" style="background: transparent; border: 2px solid white; color: white;">GitHub: maeng052097-blip</a>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
-<!-- Board Modals injected properly -->
+<!-- Board Modal -->
 <div id="board-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
     <div style="background:#fff; padding:30px; border-radius:8px; width:90%; max-width:500px;">
-        <h3 id="modal-title" style="margin-bottom: 20px; color:#004d99;">✏️ 방명록 작성</h3>
+        <h3 id="modal-title" style="margin-bottom: 20px;">방명록 작성</h3>
         <input type="hidden" id="post-id">
         <input type="text" id="post-author-input" placeholder="작성자 이름" style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px;" required>
         <input type="password" id="post-password-input" placeholder="비밀번호 (수정/삭제용)" style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px;" required>
         <textarea id="post-content-input" rows="4" placeholder="내용을 남겨주세요" style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:4px;" required></textarea>
         <div style="display:flex; gap:10px;">
-            <button id="cancel-write-btn" style="flex:1; padding:10px; border:none; background:#eee; cursor:pointer; border-radius:4px;">취소</button>
-            <button id="submit-write-btn" style="flex:1; padding:10px; border:none; background:#004d99; color:#fff; cursor:pointer; border-radius:4px; font-weight:bold;">등록하기</button>
+            <button id="cancel-write-btn" class="button" style="flex:1;">취소</button>
+            <button id="submit-write-btn" class="button alt" style="flex:1;">등록하기</button>
         </div>
     </div>
 </div>
 
 <script>
-// Basic LocalStorage Board Logic for Frisco embedded board.
+// 게시판 로직
 document.addEventListener('DOMContentLoaded', () => {
     const STORAGE_KEY = 'PORTFOLIO_FRISCO_BOARD';
     const listEl = document.getElementById('post-list');
     const noPostsEl = document.getElementById('no-posts');
     const countEl = document.getElementById('post-count');
-    
     const modal = document.getElementById('board-modal');
-    const openBtn = document.getElementById('open-write-btn');
-    const closeBtn = document.getElementById('cancel-write-btn');
-    const submitBtn = document.getElementById('submit-write-btn');
     
     function getPosts() {
         return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -176,32 +203,34 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function render() {
         const posts = getPosts();
-        countEl.textContent = posts.length;
+        if(countEl) countEl.textContent = posts.length;
         if (posts.length === 0) {
-            noPostsEl.style.display = 'block';
-            listEl.innerHTML = '';
+            if(noPostsEl) noPostsEl.style.display = 'block';
+            if(listEl) listEl.innerHTML = '';
         } else {
-            noPostsEl.style.display = 'none';
-            listEl.innerHTML = '';
-            posts.forEach(p => {
-                const div = document.createElement('div');
-                div.style.cssText = 'padding:15px; border:1px solid #eee; border-radius:6px; background:#fafbfc;';
-                div.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                        <strong style="color:#004d99;">${p.author}</strong>
-                        <span style="font-size:0.8rem; color:#888;">${new Date(p.date).toLocaleString()}</span>
-                    </div>
-                    <p style="margin:0; color:#444; line-height:1.5;">${p.content}</p>
-                    <div style="margin-top:10px; text-align:right;">
-                        <button onclick="deletePost('${p.id}')" style="background:transparent; border:none; color:red; cursor:pointer; font-size:0.85rem;">삭제</button>
-                    </div>
-                `;
-                listEl.appendChild(div);
-            });
+            if(noPostsEl) noPostsEl.style.display = 'none';
+            if(listEl) {
+                listEl.innerHTML = '';
+                posts.forEach(p => {
+                    const div = document.createElement('div');
+                    div.style.cssText = 'padding:15px; border:1px solid #ddd; border-radius:4px;';
+                    div.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <strong>${p.author}</strong>
+                            <span style="font-size:0.8rem;">${new Date(p.date).toLocaleString()}</span>
+                        </div>
+                        <p style="margin:0; line-height:1.5;">${p.content}</p>
+                        <div style="margin-top:10px; text-align:right;">
+                            <button onclick="deletePost('${p.id}')" style="background:none; border:none; color:red; cursor:pointer;">삭제</button>
+                        </div>
+                    `;
+                    listEl.appendChild(div);
+                });
+            }
         }
     }
     
-    openBtn.addEventListener('click', () => {
+    document.getElementById('open-write-btn')?.addEventListener('click', () => {
         modal.style.display = 'flex';
         document.getElementById('post-id').value = '';
         document.getElementById('post-author-input').value = '';
@@ -209,9 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('post-content-input').value = '';
     });
     
-    closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+    document.getElementById('cancel-write-btn')?.addEventListener('click', () => { modal.style.display = 'none'; });
     
-    submitBtn.addEventListener('click', () => {
+    document.getElementById('submit-write-btn')?.addEventListener('click', () => {
         const author = document.getElementById('post-author-input').value;
         const pass = document.getElementById('post-password-input').value;
         const content = document.getElementById('post-content-input').value;
@@ -229,16 +258,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     window.deletePost = (id) => {
-        const pass = prompt("글의 비밀번호를 입력하세요.");
+        const pass = prompt("비밀번호:");
         if(!pass) return;
         let posts = getPosts();
         const target = posts.find(p => p.id === id);
         if(target && target.pass === pass) {
-            posts = posts.filter(p => p.id !== id);
-            savePosts(posts);
+            savePosts(posts.filter(p => p.id !== id));
             alert("삭제되었습니다.");
         } else {
-            alert("비밀번호가 일치하지 않습니다.");
+            alert("비밀번호 불일치.");
         }
     };
     

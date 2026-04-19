@@ -60,3 +60,20 @@
         scrollObserver.observe(el);
     });
 
+
+    // Force smooth scroll for all local anchors explicitly
+    $("a[href*=\"#\"]").off("click").on("click", function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $("html, body").animate({
+                scrollTop: $(hash).offset().top - 80 // 80px offset for fixed nav
+            }, 500);
+            
+            // Close mobile nav if open
+            if(document.body.classList.contains("nav-open")) {
+                document.body.classList.remove("nav-open");
+            }
+        }
+    });
+

@@ -1,10 +1,14 @@
 - name: 소개
-  link: /#about
+  link: "#about"
 - name: 로드맵
-  link: /#roadmap
-- name: 경험 & 역량
-  link: /#career
-- name: 프로젝트
-  link: /#projects
-- name: 자유게시판
-  link: /#board
+  link: "#roadmap"
+- name: 부트캠프
+  link: "#bootcamp"
+- name: 역량
+  link: "#competencies"
+- name: 동아리
+  link: "#club"
+- name: 연락처
+  link: "#contact"
+- name: 게시판
+  link: "#board"
