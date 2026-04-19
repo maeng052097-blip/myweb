@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
+    
+    {% seo %}
+    {% feed_meta %}
+</head>
+<body id="home" {% if page.url contains 'board' %}class="board-page-layout"{% endif %}>
+    <!-- Global UI Elements -->
+    {% if page.url contains 'board' %}
+        <canvas id="board-particles"></canvas>
+        <div class="interactive-bg"></div>
+    {% else %}
+        <div class="scroll-progress" id="scroll-progress"></div>
+        <canvas id="particle-canvas"></canvas>
+        <div class="cursor-glow" id="cursor-glow"></div>
+    {% endif %}
+    
+    {% include navigation.html %}
+
+    {% if page.url == '/' or page.url == '/index.html' %}
+    <div class="code-watermark">
+        > SYSTEM_INIT: FSE_AGENT_LOADED<br>
+        > CONNECTING_TO: EQUIP_NODE_01... OK<br>
+        > PLC_SEQUENCE: VERIFIED<br>
+        > SAFETY_INTERLOCK_CHK: PASSED<br>
+        > WAITING_FOR_COMMAND...
+    </div>
+    {% endif %}
+
+    {{ content }}
+
+    {% if page.url == '/' or page.url == '/index.html' %}
+        {% include footer.html %}
+    {% endif %}
+
+    <script src="{{ site.baseurl }}/js/script.js"></script>
+    {% if page.url contains 'board' %}
+    <script src="{{ site.baseurl }}/js/board.js"></script>
+    {% endif %}
+</body>
+</html>
