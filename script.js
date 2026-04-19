@@ -9,22 +9,24 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // Initialize Vanta.js FOG effect fully covering the background
+    // Initialize Vanta.js NET effect globally on #vanta-bg
     if (typeof VANTA !== 'undefined') {
-        VANTA.FOG({
+        VANTA.NET({
             el: "#vanta-bg",
-            mouseControls: false,
-            touchControls: false,
+            mouseControls: true,
+            touchControls: true,
             gyroControls: false,
             minHeight: 200.00,
             minWidth: 200.00,
-            highlightColor: 0x22d3ee,  // cyan accent
-            midtoneColor: 0x074c91, // samsung blue
-            lowlightColor: 0xa78bfa, // purple
-            baseColor: 0x030614, // deep space
-            blurFactor: 0.8,
-            speed: 0.4, // Slower, subtler animation
-            zoom: 1.00
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x22d3ee,       // Accent cyan
+            backgroundColor: 0x000000, 
+            backgroundAlpha: 0.0,  // Transparent to let Aurora show through
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: true
         });
     }
 
