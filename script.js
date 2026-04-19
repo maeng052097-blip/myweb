@@ -119,29 +119,42 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dist = Math.sqrt(dx*dx + dy*dy);
 
                         if (phase === 'gather') {
-                            // Exponential acceleration (Gravity)
-                            // Starts at 0, slowly climbs, then slingshots them
-                            const gravity = Math.pow(gatherFrame / 60, 3) * 0.15; 
-                            
-                            p.vx += (dx / (dist || 1)) * gravity;
-                            p.vy += (dy / (dist || 1)) * gravity;
-                            
-                            p.vx *= 0.95; // Enough friction to allow slow start but still speeds up
-                            p.vy *= 0.95;
-                            
-                            if (dist > 25) allGathered = false;
-
-                            // Constellation lines using Vanta's Dark Cyan color (10, 108, 142)
-                            for(let i=0; i<Math.min(4, particles.length); i++){
-                                let p2 = particles[Math.floor(Math.random() * particles.length)];
-                                const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
-                                if(d2 < 120) {
-                                    ctx.beginPath();
-                                    ctx.moveTo(p.x, p.y);
-                                    ctx.lineTo(p2.x, p2.y);
-                                    ctx.strokeStyle = `rgba(10, 108, 142, ${0.15 - d2/1200})`;
-                                    ctx.stroke();
+                            if (!p.isGathered) {
+                                // Exponential acceleration (Gravity)
+                                const gravity = Math.pow(gatherFrame / 60, 3) * 0.15; 
+                                
+                                p.vx += (dx / (dist || 1)) * gravity;
+                                p.vy += (dy / (dist || 1)) * gravity;
+                                
+                                p.vx *= 0.95; // Enough friction to allow slow start
+                                p.vy *= 0.95;
+                                
+                                if (dist < 25) {
+                                    p.isGathered = true;
+                                    p.x = center.x;
+                                    p.y = center.y;
+                                    p.vx = 0;
+                                    p.vy = 0;
+                                } else {
+                                    allGathered = false;
                                 }
+
+                                // Constellation lines using Vanta's Dark Cyan color
+                                for(let i=0; i<Math.min(4, particles.length); i++){
+                                    let p2 = particles[Math.floor(Math.random() * particles.length)];
+                                    if(p2.isGathered) continue; // Don't draw lines to center clustered dots to avoid messy blob
+                                    const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                                    if(d2 < 120) {
+                                        ctx.beginPath();
+                                        ctx.moveTo(p.x, p.y);
+                                        ctx.lineTo(p2.x, p2.y);
+                                        ctx.strokeStyle = `rgba(10, 108, 142, ${0.15 - d2/1200})`;
+                                        ctx.stroke();
+                                    }
+                                }
+                            } else {
+                                p.x = center.x;
+                                p.y = center.y;
                             }
                         }
 
