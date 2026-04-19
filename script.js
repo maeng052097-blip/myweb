@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Prevent scrolling during intro
         document.body.style.overflow = 'hidden';
         
-        const text1 = "저는 현장의 설비를 이해하고,\nAI로 가동률의 한계를 돌파하는 엔지니어 ";
+        const text1 = "설비 × AI 지능형 제어\n";
         const name = "맹세영";
-        const text2 = "입니다.";
+        const text2 = " 포트폴리오";
         
         let index1 = 0, indexName = 0, index2 = 0;
         
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         typewriterEl.innerHTML += text1[index1];
                     }
                     index1++;
-                    setTimeout(typeText1, 60);
+                    setTimeout(typeText1, 50);
                 } else {
                     const nameSpan = document.createElement('span');
                     nameSpan.className = 'intro-highlight-name';
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (indexName < name.length) {
                     span.innerHTML += name[indexName];
                     indexName++;
-                    setTimeout(() => typeName(span), 100); // Slower, heavier typing for emphasis
+                    setTimeout(() => typeName(span), 80);
                 } else {
                     typeText2();
                 }
@@ -54,24 +54,126 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (index2 < text2.length) {
                     typewriterEl.innerHTML += text2[index2];
                     index2++;
-                    setTimeout(typeText2, 60);
+                    setTimeout(typeText2, 50);
                 } else {
-                    // Start explosion 1.5s after finishing typing
-                    setTimeout(explodeAndHide, 1500);
+                    // Start sequence after completion
+                    setTimeout(startBigBang, 800);
                 }
             }
             
             typeText1();
-        }, 1500); // 1.5s black screen pause at start
+        }, 1200); 
         
-        function explodeAndHide() {
-            typewriterEl.parentElement.classList.add('explode-animation');
-            overlay.classList.add('fade-out-animation');
+        function startBigBang() {
+            // Fade out the text container smoothly
+            typewriterEl.parentElement.style.transition = 'opacity 0.6s ease';
+            typewriterEl.parentElement.style.opacity = '0';
             
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                document.body.style.overflow = '';
-            }, 1000);
+            // Create particle canvas
+            const canvas = document.createElement('canvas');
+            canvas.style.position = 'absolute';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.width = '100vw';
+            canvas.style.height = '100vh';
+            canvas.style.zIndex = '-1'; 
+            overlay.insertBefore(canvas, overlay.firstChild);
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+            
+            let particles = [];
+            let phase = 'gather'; 
+            let center = { x: canvas.width / 2, y: canvas.height / 2 };
+
+            // Create particles scattered at edges
+            for(let i=0; i<150; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.max(canvas.width, canvas.height); // spawn outside
+                particles.push({
+                    x: center.x + Math.cos(angle) * distance,
+                    y: center.y + Math.sin(angle) * distance,
+                    vx: 0,
+                    vy: 0,
+                    size: Math.random() * 2 + 1,
+                    hue: Math.random() > 0.5 ? 188 : 217
+                });
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; // trailing effect
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                let allGathered = true;
+
+                particles.forEach(p => {
+                    const dx = center.x - p.x;
+                    const dy = center.y - p.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+
+                    if (phase === 'gather') {
+                        // Accelerate towards center
+                        p.vx += dx * 0.008;
+                        p.vy += dy * 0.008;
+                        
+                        // Friction
+                        p.vx *= 0.95;
+                        p.vy *= 0.95;
+                        
+                        if (dist > 15) allGathered = false;
+
+                        // Constellation lines
+                        for(let i=0; i<Math.min(3, particles.length); i++){
+                            let p2 = particles[Math.floor(Math.random() * particles.length)];
+                            const d2 = Math.sqrt(Math.pow(p.x - p2.x, 2) + Math.pow(p.y - p2.y, 2));
+                            if(d2 < 100) {
+                                ctx.beginPath();
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.strokeStyle = `rgba(34, 211, 238, ${0.15 - d2/800})`;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsl(${p.hue}, 100%, 70%)`;
+                    ctx.fill();
+                });
+
+                if (phase === 'gather' && allGathered) {
+                    phase = 'explode';
+                    
+                    // Center flash
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Explode outward
+                    particles.forEach(p => {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.random() * 40 + 15;
+                        p.vx = Math.cos(angle) * speed;
+                        p.vy = Math.sin(angle) * speed;
+                    });
+
+                    // Trigger overlay fade out showing the actual site behind it
+                    overlay.classList.add('fade-out-animation');
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }, 1000);
+                }
+
+                if (overlay.style.display !== 'none') {
+                    requestAnimationFrame(animate);
+                }
+            }
+            animate();
         }
     }
     
