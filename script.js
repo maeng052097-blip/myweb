@@ -4,6 +4,79 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // =============================================
+    // 0. INTRO SEQUENCE (Typewriter & Explode)
+    // =============================================
+    function runIntroSequence() {
+        const overlay = document.getElementById('intro-overlay');
+        const typewriterEl = document.getElementById('intro-typewriter');
+        if (!overlay || !typewriterEl) return;
+        
+        // Prevent scrolling during intro
+        document.body.style.overflow = 'hidden';
+        
+        const text1 = "저는 현장의 설비를 이해하고,\nAI로 가동률의 한계를 돌파하는 엔지니어 ";
+        const name = "맹세영";
+        const text2 = "입니다.";
+        
+        let index1 = 0, indexName = 0, index2 = 0;
+        
+        // Initial delay
+        setTimeout(() => {
+            function typeText1() {
+                if (index1 < text1.length) {
+                    if (text1[index1] === '\n') {
+                        typewriterEl.innerHTML += '<br>';
+                    } else {
+                        typewriterEl.innerHTML += text1[index1];
+                    }
+                    index1++;
+                    setTimeout(typeText1, 60);
+                } else {
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'intro-highlight-name';
+                    typewriterEl.appendChild(nameSpan);
+                    typeName(nameSpan);
+                }
+            }
+            
+            function typeName(span) {
+                if (indexName < name.length) {
+                    span.innerHTML += name[indexName];
+                    indexName++;
+                    setTimeout(() => typeName(span), 100); // Slower, heavier typing for emphasis
+                } else {
+                    typeText2();
+                }
+            }
+            
+            function typeText2() {
+                if (index2 < text2.length) {
+                    typewriterEl.innerHTML += text2[index2];
+                    index2++;
+                    setTimeout(typeText2, 60);
+                } else {
+                    // Start explosion 1.5s after finishing typing
+                    setTimeout(explodeAndHide, 1500);
+                }
+            }
+            
+            typeText1();
+        }, 1500); // 1.5s black screen pause at start
+        
+        function explodeAndHide() {
+            typewriterEl.parentElement.classList.add('explode-animation');
+            overlay.classList.add('fade-out-animation');
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 1000);
+        }
+    }
+    
+    runIntroSequence();
+
     // Initialize Lucide Icons if available
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
