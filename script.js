@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const overlay = document.getElementById('intro-overlay');
         const typewriterEl = document.getElementById('intro-typewriter');
         if (!overlay || !typewriterEl) return;
+
+        // Check if intro has already played in this session
+        if (sessionStorage.getItem('introPlayed') === 'true') {
+            overlay.style.display = 'none';
+            document.body.style.overflow = '';
+            return;
+        }
+        sessionStorage.setItem('introPlayed', 'true');
         
         // Prevent scrolling during intro
         document.body.style.overflow = 'hidden';
@@ -57,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(typeText2, 80);
                 } else {
                     // Shorter pause after text completes
-                    setTimeout(startBigBang, 800);
+                    setTimeout(startBigBang, 100);
                 }
             }
             
@@ -65,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500); 
         
         function startBigBang() {
-            // Fade out the text container smoothly over 1s
-            typewriterEl.parentElement.style.transition = 'opacity 1s ease';
+            // Fade out the text container smoothly over 0.5s
+            typewriterEl.parentElement.style.transition = 'opacity 0.4s ease';
             typewriterEl.parentElement.style.opacity = '0';
             
             // Wait shortly for text to fade before showing particles
@@ -91,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Create particles scattered widely
                 for(let i=0; i<300; i++) { // Increased count to match Vanta point density
                     const angle = Math.random() * Math.PI * 2;
-                    const distance = Math.max(canvas.width, canvas.height) + Math.random() * 800; 
+                    // Start closer to center so they appear on screen immediately
+                    const distance = Math.max(canvas.width/2, canvas.height/2) + Math.random() * 200; 
                     particles.push({
                         x: center.x + Math.cos(angle) * distance,
                         y: center.y + Math.sin(angle) * distance,
@@ -121,15 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (phase === 'gather') {
                             if (!p.isGathered) {
                                 // Linear gravity ramp to ensure smooth acceleration without uncontrolled snapping
-                                const gravity = Math.min(gatherFrame * 0.002, 0.5); 
+                                const gravity = Math.min(gatherFrame * 0.005, 1.0); 
                                 
                                 p.vx += (dx / (dist || 1)) * gravity;
                                 p.vy += (dy / (dist || 1)) * gravity;
                                 
                                 // Hard cap the movement speed so the eye can track the stars moving
                                 const currentSpeed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
-                                // The maximum speed limit also raises slowly over time, capping at 12px/frame
-                                const maxSpeed = Math.min(gatherFrame * 0.08, 12); 
+                                // The maximum speed limit also raises slowly over time, capping at 20px/frame
+                                const maxSpeed = Math.min(gatherFrame * 0.15, 20); 
                                 if (currentSpeed > maxSpeed) {
                                     p.vx = (p.vx / currentSpeed) * maxSpeed;
                                     p.vy = (p.vy / currentSpeed) * maxSpeed;
@@ -207,14 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             p.drag = 0.99; 
                         });
 
-                        // Slower explosion means we should give them more time (2.5s) to watch it spread before transitioning
+                        // Slower explosion means we should give them more time (1.8s) to watch it spread before transitioning
                         setTimeout(() => {
                             overlay.classList.add('fade-out-animation');
                             setTimeout(() => {
                                 overlay.style.display = 'none';
                                 document.body.style.overflow = '';
                             }, 1200); // 1.2s CSS fade out animation
-                        }, 2500); 
+                        }, 1800); 
                     }
 
                     if (phase === 'explode') {
@@ -234,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 animate();
-            }, 800); // Wait slightly after text starts fading before gathering
+            }, 100); // Wait slightly after text starts fading before gathering
         }
     }
     

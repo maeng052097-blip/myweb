@@ -1,4 +1,31 @@
-// board.js — Enhanced CRUD with Password Protection & Visual Effects
+// board.js — Enhanced CRUD with Password Protection & Visual Effects (Firebase Version - Local File Supported)
+
+// ==============================================================================
+// 🚨 [필수] 아래 항목에 Firebase Console에서 발급받은 'firebaseConfig' 내용을 덮어쓰세요! 🚨
+// ==============================================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyDV5LbGyeXqeCQ7UthGHWXhy-95E2cyobs",
+    authDomain: "my-web-c5791.firebaseapp.com",
+    projectId: "my-web-c5791",
+    storageBucket: "my-web-c5791.firebasestorage.app",
+    messagingSenderId: "879187406247",
+    appId: "1:879187406247:web:221cb133195f5336911a82"
+};
+
+let db, postsCollection;
+const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY_HERE";
+
+if (isFirebaseConfigured) {
+    try {
+        // Use Global firebase object from compat CDN layer (Fixes local CORS errors)
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore();
+        postsCollection = db.collection("portfolio_posts");
+    } catch(e) {
+        console.error("Firebase 초기화 에러:", e);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('post-form');
     const postList = document.getElementById('post-list');
@@ -11,28 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const verifyError = document.getElementById('verify-error');
     const toastEl = document.getElementById('toast');
 
-    let posts = JSON.parse(localStorage.getItem('portfolio_posts')) || [];
+    let posts = [];
     const TEXT_LIMIT = 150;
 
-    // Pending action for password verification
     let pendingAction = null; // { type: 'edit' | 'delete', postId: string }
 
-    // =============================================
-    // Simple hash function for password storage
-    // =============================================
     function simpleHash(str) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // Convert to 32-bit integer
+            hash = hash & hash;
         }
         return hash.toString(36);
     }
 
-    // =============================================
-    // Avatar color generator (consistent per author)
-    // =============================================
     function getAvatarColor(name) {
         const colors = [
             'linear-gradient(135deg, #667eea, #764ba2)',
@@ -55,26 +75,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return name.charAt(0).toUpperCase();
     }
 
-    // =============================================
-    // Toast Notification
-    // =============================================
     function showToast(message, type = 'success') {
         toastEl.textContent = type === 'success' ? `✅ ${message}` : `❌ ${message}`;
         toastEl.className = `toast ${type}`;
-        // Trigger reflow
         toastEl.offsetHeight;
         toastEl.classList.add('show');
-        setTimeout(() => {
-            toastEl.classList.remove('show');
-        }, 2500);
+        setTimeout(() => toastEl.classList.remove('show'), 2500);
     }
 
     // =============================================
-    // Save & Render
+    // Firebase Load Data
     // =============================================
-    function savePosts() {
-        localStorage.setItem('portfolio_posts', JSON.stringify(posts));
-        renderPosts();
+    async function loadPosts() {
+        if (!isFirebaseConfigured) {
+            showToast("Firebase API Key 연동이 필요합니다.", "error");
+            posts = [{
+                id: 'dummy-1', author: '시스템', 
+                content: 'Firebase 설정(firebaseConfig)을 board.js 8번째 줄에 맞춰 입력하시면 백엔드가 영구 활성화됩니다!',
+                date: '가이드', parentId: null, passwordHash: 'dummy', likes: 0, edited: false
+            }];
+            renderPosts();
+            return;
+        }
+
+        try {
+            const querySnapshot = await postsCollection.orderBy("date", "asc").get();
+            posts = [];
+            querySnapshot.forEach((docSnap) => {
+                posts.push({ id: docSnap.id, ...docSnap.data() });
+            });
+            renderPosts();
+        } catch (error) {
+            console.error("데이터 로드 실패:", error);
+            showToast("데이터를 불러오는데 실패했습니다. 데이터베이스 규칙을 확인하세요.", "error");
+        }
     }
 
     function renderPosts() {
@@ -88,15 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
             noPostsMsg.style.display = 'block';
         } else {
             noPostsMsg.style.display = 'none';
-            // Newest first
-            [...topLevelPosts].reverse().forEach((post, index) => {
+            topLevelPosts.forEach((post, index) => {
                 const postWrapper = document.createElement('div');
                 postWrapper.className = 'post-wrapper';
                 postWrapper.style.animationDelay = `${index * 0.05}s`;
-                
                 postWrapper.innerHTML = createPostHtml(post, false);
                 
-                // Render Replies
                 const replies = posts.filter(p => p.parentId === post.id);
                 if (replies.length > 0) {
                     const replyContainer = document.createElement('div');
@@ -106,14 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     postWrapper.appendChild(replyContainer);
                 }
-                
                 postList.appendChild(postWrapper);
             });
         }
     }
 
     function createPostHtml(post, isReply) {
-        const isLong = post.content.length > TEXT_LIMIT;
+        const isLong = post.content && post.content.length > TEXT_LIMIT;
         const collapsedClass = isLong ? 'collapsed' : '';
         const likeCount = post.likes || 0;
         const avatarColor = getAvatarColor(post.author);
@@ -149,55 +179,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =============================================
-    // Form Submission (Create / Update / Reply)
+    // Firebase Form Submission
     // =============================================
     postForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        if (!isFirebaseConfigured) {
+            showToast("Firebase API Key 입력 전에는 글을 작성할 수 없습니다.", "error");
+            closeModal();
+            return;
+        }
+
         const id = document.getElementById('post-id').value;
         const parentId = document.getElementById('parent-id').value;
         const author = document.getElementById('post-author-input').value.trim();
         const content = document.getElementById('post-content-input').value.trim();
         const password = document.getElementById('post-password-input').value;
         const now = new Date();
-        const dateString = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2,'0');
+        const dd = String(now.getDate()).padStart(2,'0');
+        const hh = String(now.getHours()).padStart(2,'0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const dateString = `${yyyy}.${mm}.${dd} ${hh}:${min}`;
 
-        if (id) {
-            // Update existing post
-            const index = posts.findIndex(p => p.id === id);
-            if (index !== -1) {
-                posts[index].author = author;
-                posts[index].content = content;
-                posts[index].date = dateString;
-                posts[index].edited = true;
-                // Update password if changed
-                if (password) {
-                    posts[index].passwordHash = simpleHash(password);
+        const submitBtn = postForm.querySelector('.modal-btn-submit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "처리중...";
+
+        (async () => {
+            try {
+                if (id) {
+                    const updateData = { author, content, date: dateString, edited: true };
+                    if (password) updateData.passwordHash = simpleHash(password);
+                    
+                    await db.collection("portfolio_posts").doc(id).update(updateData);
+                    showToast('글이 수정되었습니다');
+                } else {
+                    const newPost = {
+                        author, content, date: dateString,
+                        parentId: parentId || null,
+                        passwordHash: simpleHash(password),
+                        likes: 0, edited: false
+                    };
+                    await postsCollection.add(newPost);
+                    showToast(parentId ? '답글이 등록되었습니다' : '글이 등록되었습니다');
                 }
+                await loadPosts();
+            } catch(error) {
+                console.error(error);
+                showToast('등록/수정에 실패했습니다.', "error");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "등록하기";
+                closeModal();
             }
-            showToast('글이 수정되었습니다');
-        } else {
-            // Create new post or reply
-            const newPost = {
-                id: Date.now().toString(),
-                author,
-                content,
-                date: dateString,
-                parentId: parentId || null,
-                passwordHash: simpleHash(password),
-                likes: 0,
-                edited: false
-            };
-            posts.push(newPost);
-            showToast(parentId ? '답글이 등록되었습니다' : '글이 등록되었습니다');
-        }
-
-        savePosts();
-        closeModal();
+        })();
     });
 
-    // =============================================
-    // Password Verification for Edit/Delete
-    // =============================================
     window.requestEdit = function(id) {
         pendingAction = { type: 'edit', postId: id };
         openVerifyModal();
@@ -224,15 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.confirmVerify = function() {
         if (!pendingAction) return;
-
         const post = posts.find(p => p.id === pendingAction.postId);
         if (!post) return;
 
         const inputHash = simpleHash(verifyPasswordInput.value);
-
         if (inputHash !== post.passwordHash) {
             verifyError.style.display = 'block';
-            // Re-trigger shake animation
             verifyError.style.animation = 'none';
             verifyError.offsetHeight;
             verifyError.style.animation = 'shake 0.4s ease';
@@ -241,7 +277,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Password matched!
         if (pendingAction.type === 'edit') {
             closeVerifyModal();
             editPost(post.id);
@@ -251,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Enter key to confirm verify
     verifyPasswordInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -259,9 +293,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // =============================================
-    // CRUD Operations (after password verified)
-    // =============================================
     function editPost(id) {
         const post = posts.find(p => p.id === id);
         if (post) {
@@ -276,16 +307,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function deletePost(id) {
-        // Delete post and its replies
-        posts = posts.filter(p => p.id !== id && p.parentId !== id);
-        savePosts();
-        showToast('글이 삭제되었습니다');
+    async function deletePost(id) {
+        if (!isFirebaseConfigured) return;
+        try {
+            await db.collection("portfolio_posts").doc(id).delete();
+            const replies = posts.filter(p => p.parentId === id);
+            for (const reply of replies) {
+                await db.collection("portfolio_posts").doc(reply.id).delete();
+            }
+            showToast('글이 삭제되었습니다');
+            await loadPosts();
+        } catch(e) {
+            console.error(e);
+            showToast('삭제에 실패했습니다.', 'error');
+        }
     }
 
-    // =============================================
-    // Modal Controls
-    // =============================================
     window.openWriteModal = function() {
         modalTitle.textContent = '✏️ 글 남기기';
         postForm.reset();
@@ -310,7 +347,6 @@ document.addEventListener('DOMContentLoaded', () => {
         postForm.reset();
     };
 
-    // Click outside modal to close
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
     });
@@ -318,34 +354,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === verifyModal) closeVerifyModal();
     });
 
-    // =============================================
-    // Like Post (with local duplicate prevention)
-    // =============================================
-    window.likePost = function(id) {
-        const likedPosts = JSON.parse(localStorage.getItem('liked_posts') || '[]');
+    window.likePost = async function(id) {
+        if (!isFirebaseConfigured) return;
         
+        const likedPosts = JSON.parse(localStorage.getItem('liked_posts') || '[]');
         if (likedPosts.includes(id)) {
             showToast('이미 추천한 글입니다', 'error');
             return;
         }
 
-        const index = posts.findIndex(p => p.id === id);
-        if (index !== -1) {
-            posts[index].likes = (posts[index].likes || 0) + 1;
-            likedPosts.push(id);
-            localStorage.setItem('liked_posts', JSON.stringify(likedPosts));
-            savePosts();
-            showToast('❤️ 추천되었습니다!');
+        const post = posts.find(p => p.id === id);
+        if (post) {
+            try {
+                const newLikes = (post.likes || 0) + 1;
+                await db.collection("portfolio_posts").doc(id).update({ likes: newLikes });
+                
+                likedPosts.push(id);
+                localStorage.setItem('liked_posts', JSON.stringify(likedPosts));
+                showToast('❤️ 추천되었습니다!');
+                
+                post.likes = newLikes;
+                renderPosts();
+            } catch(e) {
+                console.error(e);
+                showToast('추천 오류가 발생했습니다.', 'error');
+            }
         }
     };
 
-    // =============================================
-    // Content Toggle
-    // =============================================
     window.toggleContent = function(id) {
         const contentDiv = document.getElementById(`content-${id}`);
         const btn = contentDiv.parentElement.querySelector('.toggle-btn');
-        
         if (contentDiv.classList.contains('collapsed')) {
             contentDiv.classList.remove('collapsed');
             btn.textContent = '간략히 보기 ▲';
@@ -355,23 +394,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // =============================================
-    // Escape HTML
-    // =============================================
     function escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
     }
 
-    // =============================================
-    // PARTICLE SYSTEM (for board page)
-    // =============================================
     const canvas = document.getElementById('board-particles');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let particles = [];
-
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -380,9 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', resizeCanvas);
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
@@ -390,13 +420,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.speedX = (Math.random() - 0.5) * 0.3;
                 this.speedY = (Math.random() - 0.5) * 0.3;
                 this.opacity = Math.random() * 0.3 + 0.05;
-                this.color = Math.random() > 0.6
-                    ? `rgba(34, 211, 238, ${this.opacity})`
-                    : `rgba(96, 165, 250, ${this.opacity})`;
+                this.color = Math.random() > 0.6 ? `rgba(34, 211, 238, ${this.opacity})` : `rgba(96, 165, 250, ${this.opacity})`;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x += this.speedX; this.y += this.speedY;
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
@@ -409,9 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const numParticles = Math.min(50, Math.floor(window.innerWidth * window.innerHeight / 25000));
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < numParticles; i++) particles.push(new Particle());
 
         function drawLines() {
             for (let i = 0; i < particles.length; i++) {
@@ -441,14 +466,10 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
     }
 
-    // =============================================
-    // MOUSE TRACKING
-    // =============================================
     window.addEventListener('mousemove', (e) => {
         document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
         document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
 
-    // Initial render
-    renderPosts();
+    loadPosts();
 });
