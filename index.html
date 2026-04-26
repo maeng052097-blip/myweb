@@ -588,7 +588,13 @@
                         <p style="margin-bottom:20px; font-size:0.9rem; color:var(--text-light);">
                             작성해주신 메세지는 제 이메일로 즉시 전달됩니다.
                         </p>
-                        <form id="contact-form" action="https://formsubmit.co/ajax/maengsy0520@naver.com" method="POST" class="contact-form">
+                        <!-- 보이지 않는 가짜 창 (전송용) -->
+                        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(this.contentWindow.name==='sent'){alert('✅ 성함과 연락처가 성공적으로 전달되었습니다!'); document.getElementById('contact-form').reset(); this.contentWindow.name='';}"></iframe>
+
+                        <form id="contact-form" action="https://formsubmit.co/maengsy0520@naver.com" method="POST" target="hidden_iframe" onsubmit="this.target='hidden_iframe'; this.nextSibling.nextSibling.contentWindow.name='sent';">
+                            <!-- 스팸 방지 비활성화 (AJAX 효과를 위해) -->
+                            <input type="hidden" name="_captcha" value="false">
+                            
                             <div class="form-group">
                                 <label for="name">성함 (Name)</label>
                                 <input type="text" id="name" name="name" required placeholder="이름을 입력해주세요">
