@@ -149,6 +149,7 @@ body::after {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding-left: 30px;
 }
 
 .nav-logo {
@@ -162,7 +163,7 @@ body::after {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-right: 50px; /* 포트폴리오 로고와 목차 사이의 강제 여백 추가 */
+    margin-right: 100px; /* 포트폴리오 로고와 목차 사이의 강제 여백 추가 */
     flex-shrink: 0;
 }
 
@@ -355,7 +356,7 @@ body::after {
 
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 2.5rem); /* 모바일 반응형 폰트 사이즈 조정 */
     font-weight: 800;
     margin-bottom: 60px;
     color: var(--text-main);
@@ -503,7 +504,7 @@ body::after {
 }
 
 .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
     color: var(--samsung-blue);
     font-weight: 700;
     margin-bottom: 10px;
@@ -512,7 +513,7 @@ body::after {
 }
 
 .hero-title {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 900;
     margin-bottom: 20px;
     letter-spacing: -2px;
@@ -525,7 +526,7 @@ body::after {
 }
 
 .hero-slogan {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
     color: var(--samsung-blue);
     margin-bottom: 30px;
     font-weight: 500;
