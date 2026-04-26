@@ -859,5 +859,47 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.transitionDelay = `${i * 0.08}s`;
     });
 
+    // =============================================
+    // 17. CONTACT FORM HANDLING (FormSubmit AJAX)
+    // =============================================
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button');
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = '전속 중...';
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('contact-info').value,
+                message: document.getElementById('message').value
+            };
+
+            fetch(this.action, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("✅ 전송 완료! 메시지가 성공적으로 전달되었습니다.");
+                this.reset();
+            })
+            .catch(error => {
+                alert("❌ 전송 실패: 다시 시도해 주세요.");
+            })
+            .finally(() => {
+                button.disabled = false;
+                button.textContent = originalText;
+            });
+        });
+    }
+
 }); // end DOMContentLoaded
 

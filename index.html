@@ -588,11 +588,7 @@
                         <p style="margin-bottom:20px; font-size:0.9rem; color:var(--text-light);">
                             작성해주신 메세지는 제 이메일로 즉시 전달됩니다.
                         </p>
-                        <form action="https://formsubmit.co/maengsy0520@naver.com" method="POST" class="contact-form">
-                            <!-- 스팸 방지 및 캡차 설정 -->
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_next" value="https://maeng052097-blip.github.io/myweb/"> <!-- 전송 후 돌아올 주소 수정 -->
-                            
+                        <form id="contact-form" action="https://formsubmit.co/ajax/maengsy0520@naver.com" method="POST" class="contact-form">
                             <div class="form-group">
                                 <label for="name">성함 (Name)</label>
                                 <input type="text" id="name" name="name" required placeholder="이름을 입력해주세요">
