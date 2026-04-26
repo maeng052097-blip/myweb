@@ -247,11 +247,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Allow clicking anywhere to skip intro
+    const introOverlay = document.getElementById('intro-overlay');
+    if (introOverlay) {
+        introOverlay.addEventListener('click', () => {
+            sessionStorage.setItem('introPlayed', 'true');
+            introOverlay.style.transition = 'opacity 0.5s';
+            introOverlay.style.opacity = '0';
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 500);
+        });
+    }
+    
     runIntroSequence();
 
     // Initialize Lucide Icons if available
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
+
+        // Apply themed colors to vision card icons after Lucide renders SVGs
+        const visionCards = document.querySelectorAll('.vision-card');
+        const visionColors = ['#f44336', '#1565c0', '#4caf50']; // Red, Blue, Green
+        visionCards.forEach((card, i) => {
+            const svg = card.querySelector('svg');
+            if (svg && visionColors[i]) {
+                svg.style.stroke = visionColors[i];
+                svg.style.filter = `drop-shadow(0 0 8px ${visionColors[i]}66)`;
+            }
+        });
+
+        // Apply cyan color to competency card icons
+        document.querySelectorAll('.comp-icon svg').forEach(svg => {
+            svg.style.stroke = '#22d3ee';
+            svg.style.filter = 'drop-shadow(0 0 8px rgba(34, 211, 238, 0.4))';
+        });
+
+        // Apply cyan color to certification card icons
+        document.querySelectorAll('.cert-icon svg').forEach(svg => {
+            svg.style.stroke = '#22d3ee';
+            svg.style.filter = 'drop-shadow(0 0 8px rgba(34, 211, 238, 0.3))';
+        });
     }
 
     // Initialize Vanta.js NET effect globally on #vanta-bg
@@ -787,4 +824,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // =============================================
+    // 15. BACK TO TOP BUTTON
+    // =============================================
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // =============================================
+    // 16. ENHANCED STAGGER — Timeline & Vision Cards
+    // =============================================
+    document.querySelectorAll('.timeline-item.slide-up').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.12}s`;
+    });
+
+    document.querySelectorAll('.vision-card').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.15}s`;
+        card.style.animationDelay = `${i * 0.15}s`;
+    });
+
+    // Stagger cert cards
+    document.querySelectorAll('.cert-card').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.08}s`;
+    });
+
 }); // end DOMContentLoaded
+
