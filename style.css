@@ -162,11 +162,13 @@ body::after {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-right: 50px; /* 포트폴리오 로고와 목차 사이의 강제 여백 추가 */
+    flex-shrink: 0;
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 20px; /* 목차 간 간격을 살짝 줄여서 중앙 여유 공간 확보 */
     list-style: none;
 }
 

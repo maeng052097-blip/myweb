@@ -284,8 +284,11 @@
                             <h3>8족 Klann Linkage 달리는 로봇</h3>
                         </div>
                         <div class="project-body">
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <img loading="lazy" src="images/klann_linkage.jpg" alt="8족 Klann Linkage 로봇 시스템" style="max-width: 70%; max-height: 250px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <div style="text-align: center; margin-bottom: 20px; position: relative; border-radius: 8px; overflow: hidden; background: #000;">
+                                <!-- 💡 기구학 캡스톤 시연 영상을 찍어 올릴 때 이 주석을 해제하세요 -->
+                                <video autoplay loop muted playsinline poster="images/klann_linkage.jpg" style="width: 100%; max-height: 250px; object-fit: contain; display: block;">
+                                    <!-- <source src="images/klann_demo.mp4" type="video/mp4"> -->
+                                </video>
                             </div>
                             <ul class="project-details">
                                 <li><strong>팀 구성:</strong> 4인 팀 | 본인 역할: <strong>설계 및 제작 담당</strong></li>
@@ -307,8 +310,12 @@
                             <h3>삼거리 신호등 논리 제어 설계</h3>
                         </div>
                         <div class="project-body">
-                            <div style="text-align: center; margin-bottom: 20px;">
-                                <img loading="lazy" src="images/logic_circuit.jpg" alt="삼거리 신호등 논리회로도" style="max-width: 100%; border-radius: 8px; border: 1px solid var(--border-color); background: white; padding: 10px;">
+                            <div style="text-align: center; margin-bottom: 20px; position: relative; border-radius: 8px; overflow: hidden; background: #000;">
+                                <!-- 💡 사용자님이 방금 녹화하신 circuit_demo.mp4 영상이 재생됩니다 -->
+                                <video autoplay loop muted playsinline poster="images/logic_circuit.jpg" style="width: 100%; max-height: 550px; object-fit: contain; display: block;">
+                                    <source src="images/circuit_demo.mp4" type="video/mp4">
+                                </video>
+                                <div style="position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.7); color: #10b981; padding: 5px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; border: 1px solid #10b981;"><i data-lucide="play" style="width:12px; height:12px; vertical-align:-1px;"></i> 회로 무결점 테스트 시뮬레이션</div>
                             </div>
                             <ul class="project-details">
                                 <li><strong>설계 목적:</strong> 복잡한 삼거리 신호 체계에서 발생 가능한 신호 충돌(Dead-lock) 및 교차 오류를 방지하는 무결점 제어 로직 설계.</li>
@@ -323,7 +330,7 @@
                     </div>
 
                     <!-- 향후 캡스톤 2차/3차 예정 -->
-                    <div class="project-card slide-up" style="border: 2px dashed var(--samsung-blue); opacity: 0.8;">
+                    <div class="project-card slide-up" style="border: 2px dashed var(--samsung-blue); opacity: 0.8; grid-column: 1 / -1; margin: 0 auto; max-width: 800px; width: 100%;">
                         <div class="project-header" style="background: linear-gradient(135deg, #1e293b, #334155);">
                             <span class="project-tag">Capstone Design 2 · 3 (예정)</span>
                             <h3>향후 캡스톤 디자인 계획</h3>
@@ -397,41 +404,6 @@
             </div>
         </section>
 
-        <!-- ===== Technical Arsenal ===== -->
-        <section id="academic" class="section bg-light">
-            <div class="container">
-                <h2 class="section-title slide-up">Technical Arsenal</h2>
-                <div class="academic-grid" id="academic-grid">
-                    <div class="academic-card slide-up">
-                        <div class="academic-img-wrapper">
-                            <img loading="lazy" src="images/cad.png" alt="CAD Design">
-                        </div>
-                        <div class="academic-content">
-                            <h3>설비 기초: 기계 설계 및 기구학</h3>
-                            <p>3차원 CAD(SolidWorks)를 통한 부품 설계 역량과 로봇공학기초(기구학)를 활용한 메커니즘 해석 능력. 캡스톤에서 Klann Linkage를 직접 설계/제작한 실전 경험 보유.</p>
-                        </div>
-                    </div>
-                    <div class="academic-card slide-up">
-                        <div class="academic-img-wrapper">
-                            <img loading="lazy" src="images/bjt.png" alt="BJT Electronics">
-                        </div>
-                        <div class="academic-content">
-                            <h3>전기/전자: 회로 해석 및 제어</h3>
-                            <p>전기회로, 전자회로(BJT 증폭/스위칭), 디지털논리회로(상태천이표, 카르노맵)를 이수. 하드웨어 신호 제어의 원리를 이해하며 설비 전기 계통 트러블슈팅 기초 역량 확보.</p>
-                        </div>
-                    </div>
-                    <div class="academic-card slide-up highlight-card">
-                        <div class="academic-img-wrapper">
-                            <img loading="lazy" src="images/PLC.png" alt="PLC Automation">
-                        </div>
-                        <div class="academic-content">
-                            <h3>핵심: PLC 제어 및 자동화</h3>
-                            <p>GX-Works3를 이용한 <strong>PLC 시퀀스 제어</strong> 및 래더 다이어그램 작성. 자기유지회로, 인터록 회로 등 반도체 설비 <strong>안전 로직 설계</strong> 능력 확보. 아두이노 기반 MCU 제어와 C# 윈도우 프로그래밍으로 설비 상태 모니터링 시스템 구현 경험.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- ===== Core Competencies ===== -->
         <section id="competencies" class="section">
